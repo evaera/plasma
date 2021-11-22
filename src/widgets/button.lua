@@ -1,7 +1,8 @@
 local Runtime = require(script.Parent.Parent.Runtime)
 
-return Runtime.widget(function(state, text)
-	if state.instance == nil then
+return Runtime.widget(function(text)
+	local clicked, setClicked = Runtime.useState(false)
+	local instance = Runtime.useInstance(function()
 		local TextButton = Instance.new("TextButton")
 		TextButton.BackgroundColor3 = Color3.fromRGB(54, 54, 54)
 		TextButton.BorderSizePixel = 0
@@ -13,22 +14,20 @@ return Runtime.widget(function(state, text)
 		local UICorner = Instance.new("UICorner")
 		UICorner.Parent = TextButton
 
-		state.clicked = false
-		state.instance = TextButton
-
 		TextButton.Activated:Connect(function()
-			state.clicked = true
+			setClicked(true)
 		end)
 
-		TextButton.Parent = Runtime.parentInstance()
-	end
+		return TextButton
+	end)
 
-	state.instance.Text = text
+	instance.Text = text
+	instance.LayoutOrder = Runtime.childNumber()
 
 	local handle = {
 		clicked = function()
-			if state.clicked then
-				state.clicked = false
+			if clicked then
+				setClicked(false)
 				return true
 			end
 

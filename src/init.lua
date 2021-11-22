@@ -5,6 +5,8 @@ return {
 	start = Runtime.start,
 	scope = Runtime.scope,
 	widget = Runtime.widget,
+	useState = Runtime.useState,
+	useInstance = Runtime.useInstance,
 
 	window = require(script.widgets.window),
 	button = require(script.widgets.button),

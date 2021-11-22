@@ -1,11 +1,12 @@
 local Runtime = require(script.Parent.Parent.Runtime)
 
-return Runtime.widget(function(state, title, fn)
-	if state.instance == nil then
+return Runtime.widget(function(title, fn)
+	local instance = Runtime.useInstance(function()
 		local Frame = Instance.new("Frame")
 		Frame.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
 		Frame.Position = UDim2.new(0.3218587, 0, 0.2729408, 0)
-		Frame.Size = UDim2.new(0, 885, 0, 403)
+		Frame.Size = UDim2.new(0, 50, 0, 40)
+		Frame.AutomaticSize = Enum.AutomaticSize.XY
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.Parent = Frame
@@ -40,12 +41,15 @@ return Runtime.widget(function(state, title, fn)
 		Container.Name = "Container"
 		Container.Parent = Frame
 
-		state.instance = Frame
+		local UIListLayout2 = Instance.new("UIListLayout")
+		UIListLayout2.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout2.Parent = Container
+		UIListLayout2.Padding = UDim.new(0, 10)
 
-		Frame.Parent = Runtime.parentInstance()
-	end
+		return Frame, Container
+	end)
 
-	state.instance.TextLabel.Text = title or ""
+	instance.TextLabel.Text = title and string.upper(title) or ""
 
 	Runtime.scope(fn)
 end)
