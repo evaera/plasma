@@ -1,0 +1,38 @@
+{
+  "name": "plasma",
+  "tree": {
+    "$className": "DataModel",
+    "HttpService": {
+      "$className": "HttpService",
+      "$properties": {
+        "HttpEnabled": {
+          "Type": "Bool",
+          "Value": true
+        }
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "$path": "tests"
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "$path": "Packages",
+      "Plasma": {
+        "$path": "src"
+      }
+    },
+    "TestService": {
+      "$properties": {
+        "ExecuteWithStudioRun": true
+      },
+      "$className": "TestService",
+      "run": {
+        "$path": "tests.server.lua"
+      }
+    }
+  }
+}
