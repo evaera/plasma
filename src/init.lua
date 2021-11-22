@@ -10,4 +10,6 @@ return {
 
 	window = require(script.widgets.window),
 	button = require(script.widgets.button),
+	portal = require(script.widgets.portal),
+	blur = require(script.widgets.blur),
 }

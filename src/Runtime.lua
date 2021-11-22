@@ -3,6 +3,7 @@ type Node = {
 	containerInstance: Instance?,
 	states: { [any]: any },
 	children: { [any]: Node },
+	generation: number,
 }
 
 type TopoKey = number
@@ -22,9 +23,21 @@ local function newNode(state: {}): Node
 
 	return {
 		instance = nil,
+		containerInstance = nil,
 		states = {},
 		children = {},
+		generation = 0,
 	}
+end
+
+local function destroyNode(node: Node)
+	if node.instance ~= nil then
+		node.instance:Destroy()
+	end
+
+	for _, child in pairs(node.children) do
+		destroyNode(child)
+	end
 end
 
 local function newStackFrame(node: Node): StackFrame
@@ -40,7 +53,6 @@ local Runtime = {}
 function Runtime.new(rootInstance: Instance): Node
 	local node = newNode()
 	node.instance = rootInstance
-	node.containerInstance = rootInstance
 	return node
 end
 
@@ -70,13 +82,15 @@ function Runtime.useInstance(creator: () -> Instance): Instance
 		local parent = Runtime.parentInstance()
 
 		local instance, container = creator()
-		instance.Parent = parent
-		if container == nil then
-			container = instance
+
+		if instance ~= nil then
+			instance.Parent = parent
+			node.instance = instance
 		end
 
-		node.instance = instance
-		node.containerInstance = container
+		if container ~= nil then
+			node.containerInstance = container
+		end
 	end
 
 	return node.instance
@@ -94,6 +108,10 @@ function Runtime.parentInstance(): Instance?
 		if frame.node.containerInstance ~= nil then
 			return frame.node.containerInstance
 		end
+
+		if frame.node.instance ~= nil then
+			return frame.node.instance
+		end
 	end
 
 	return nil
@@ -104,33 +122,32 @@ function Runtime.start(rootNode: Node, fn, ...)
 		error("Runtime.start cannot be called while Runtime.start is already running", 2)
 	end
 
-	stack[1] = newStackFrame(rootNode)
-
-	local success, err = pcall(fn, ...)
-	table.remove(stack)
-
-	if not success then
-		task.spawn(error, err)
+	if rootNode.generation == 0 then
+		rootNode.generation = 1
+	else
+		rootNode.generation = 0
 	end
 
-	return rootNode
+	stack[1] = newStackFrame(rootNode)
+	Runtime.scope(fn, ...)
+	table.remove(stack)
 end
 
 function Runtime.scope(fn, ...)
 	local parentFrame = stack[#stack]
-	if parentFrame == nil then
-		error("scope must be called from within a Plasma runtime", 2)
-	end
+	local parentNode = parentFrame.node
 
 	-- TODO: Expand key logic to include source file line and number
 	parentFrame.childCount += 1
 	local key = parentFrame.childCount
-	local currentNode = parentFrame.node.children[key]
+	local currentNode = parentNode.children[key]
 
 	if currentNode == nil then
 		currentNode = newNode()
-		parentFrame.node.children[key] = currentNode
+		parentNode.children[key] = currentNode
 	end
+
+	currentNode.generation = parentNode.generation
 
 	table.insert(stack, newStackFrame(currentNode))
 	local success, widgetHandle = pcall(fn, ...)
@@ -138,6 +155,13 @@ function Runtime.scope(fn, ...)
 
 	if not success then
 		task.spawn(error, widgetHandle)
+	end
+
+	for childKey, childNode in pairs(currentNode.children) do
+		if childNode.generation ~= currentNode.generation then
+			destroyNode(childNode)
+			currentNode.children[childKey] = nil
+		end
 	end
 
 	return widgetHandle

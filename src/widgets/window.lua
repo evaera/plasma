@@ -39,6 +39,7 @@ return Runtime.widget(function(title, fn)
 		local Container = Instance.new("Frame")
 		Container.BackgroundTransparency = 1
 		Container.Name = "Container"
+		Container.AutomaticSize = Enum.AutomaticSize.XY
 		Container.Parent = Frame
 
 		local UIListLayout2 = Instance.new("UIListLayout")
