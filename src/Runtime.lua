@@ -26,7 +26,10 @@ type StackFrame = {
 }
 
 local stack: { StackFrame } = {}
+
 local yieldedThread
+local recentErrors = {}
+local recentErrorLastTime = 0
 
 local function newNode(state: {}): Node
 	if state == nil then
@@ -156,6 +159,10 @@ function Runtime.useState<T>(initialValue: T): T
 	end
 
 	local function setter(newValue)
+		if type(newValue) == "function" then
+			newValue = newValue(states[key])
+		end
+
 		states[key] = newValue
 	end
 
@@ -221,12 +228,26 @@ local function scope(level, fn, ...)
 	currentNode.generation = parentNode.generation
 
 	table.insert(stack, newStackFrame(currentNode))
-	local success, widgetHandle = pcall(fn, ...)
-	table.remove(stack)
+	local success, widgetHandle = xpcall(fn, debug.traceback, ...)
 
 	if not success then
-		task.spawn(error, widgetHandle)
+		if os.clock() - recentErrorLastTime > 10 then
+			recentErrorLastTime = os.clock()
+			recentErrors = {}
+		end
+
+		if not recentErrors[error] then
+			task.spawn(error, widgetHandle)
+			warn("Plasma: The above error will be suppressed for the next 10 seconds")
+			recentErrors[error] = true
+		end
+
+		local errorWidget = require(script.Parent.widgets.error)
+
+		errorWidget(tostring(widgetHandle))
 	end
+
+	table.remove(stack)
 
 	for childKey, childNode in pairs(currentNode.children) do
 		if childNode.generation ~= currentNode.generation then

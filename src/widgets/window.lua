@@ -56,7 +56,7 @@ return Runtime.widget(function(title, fn)
 
 		automaticSize(Frame)
 		automaticSize(Container, {
-			maxSize = Vector2.new(300, 500),
+			maxSize = Vector2.new(math.huge, 500),
 		})
 
 		return Frame, Container
