@@ -26,8 +26,6 @@ return Runtime.widget(function(text)
 
 	instance.Text = text
 
-	instance.LayoutOrder = Runtime.childNumber()
-
 	local handle = {
 		clicked = function()
 			if clicked then

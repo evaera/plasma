@@ -19,6 +19,7 @@ type StackFrame = {
 	contextValues: {
 		[any]: any,
 	},
+	childrenCount: number,
 	effectCounts: TopoKey,
 	stateCounts: TopoKey,
 	childCounts: TopoKey,
@@ -62,6 +63,7 @@ local function newStackFrame(node: Node): StackFrame
 	return {
 		node = node,
 		contextValues = {},
+		childrenCount = 0,
 		effectCounts = {},
 		stateCounts = {},
 		childCounts = {},
@@ -162,9 +164,10 @@ end
 
 function Runtime.useInstance(creator: () -> Instance): Instance
 	local node = stack[#stack].node
+	local parentFrame = Runtime.nearestStackFrameWithInstance()
 
 	if node.instance == nil then
-		local parent = Runtime.parentInstance()
+		local parent = parentFrame.node.containerInstance or parentFrame.node.instance
 
 		local instance, container = creator()
 
@@ -178,24 +181,20 @@ function Runtime.useInstance(creator: () -> Instance): Instance
 		end
 	end
 
+	if node.instance ~= nil and node.instance:IsA("GuiObject") then
+		parentFrame.childrenCount += 1
+		node.instance.LayoutOrder = parentFrame.childrenCount
+	end
+
 	return node.instance
 end
 
-function Runtime.childNumber(): number
-	local frame = stack[#stack]
-	return frame.childCount
-end
-
-function Runtime.parentInstance(): Instance?
+function Runtime.nearestStackFrameWithInstance(): StackFrame?
 	for i = #stack - 1, 1, -1 do
 		local frame = stack[i]
 
-		if frame.node.containerInstance ~= nil then
-			return frame.node.containerInstance
-		end
-
-		if frame.node.instance ~= nil then
-			return frame.node.instance
+		if frame.node.containerInstance ~= nil or frame.node.instance ~= nil then
+			return frame
 		end
 	end
 
