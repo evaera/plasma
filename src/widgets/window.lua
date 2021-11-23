@@ -4,7 +4,8 @@ return Runtime.widget(function(title, fn)
 	local instance = Runtime.useInstance(function()
 		local Frame = Instance.new("Frame")
 		Frame.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-		Frame.Position = UDim2.new(0.3218587, 0, 0.2729408, 0)
+		Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 		Frame.Size = UDim2.new(0, 50, 0, 40)
 		Frame.AutomaticSize = Enum.AutomaticSize.XY
 

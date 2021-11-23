@@ -10,8 +10,8 @@ type TopoKey = number
 
 type StackFrame = {
 	node: Node,
-	stateCount: TopoKey,
-	childCount: TopoKey,
+	stateCounts: TopoKey,
+	childCounts: TopoKey,
 }
 
 local stack: { StackFrame } = {}
@@ -43,8 +43,8 @@ end
 local function newStackFrame(node: Node): StackFrame
 	return {
 		node = node,
-		stateCount = 0,
-		childCount = 0,
+		stateCounts = {},
+		childCounts = {},
 	}
 end
 
@@ -60,8 +60,11 @@ function Runtime.useState<T>(initialValue: T): T
 	local frame = stack[#stack]
 	local states = frame.node.states
 
-	frame.stateCount += 1
-	local key = frame.stateCount
+	local file = debug.info(2, "s")
+	local line = debug.info(2, "l")
+	local baseKey = string.format("%s:%d", file, line)
+	frame.stateCounts[baseKey] = (frame.stateCounts[baseKey] or 0) + 1
+	local key = string.format("%s:%d", baseKey, frame.stateCounts[baseKey])
 
 	local existing = states[key]
 	if existing == nil then
@@ -117,29 +120,16 @@ function Runtime.parentInstance(): Instance?
 	return nil
 end
 
-function Runtime.start(rootNode: Node, fn, ...)
-	if #stack > 0 then
-		error("Runtime.start cannot be called while Runtime.start is already running", 2)
-	end
-
-	if rootNode.generation == 0 then
-		rootNode.generation = 1
-	else
-		rootNode.generation = 0
-	end
-
-	stack[1] = newStackFrame(rootNode)
-	Runtime.scope(fn, ...)
-	table.remove(stack)
-end
-
-function Runtime.scope(fn, ...)
+local function scope(level, fn, ...)
 	local parentFrame = stack[#stack]
 	local parentNode = parentFrame.node
 
-	-- TODO: Expand key logic to include source file line and number
-	parentFrame.childCount += 1
-	local key = parentFrame.childCount
+	local file = debug.info(1 + level, "s")
+	local line = debug.info(1 + level, "l")
+	local baseKey = string.format("%s:%d", file, line)
+	parentFrame.childCounts[baseKey] = (parentFrame.childCounts[baseKey] or 0) + 1
+	local key = string.format("%s:%d", baseKey, parentFrame.childCounts[baseKey])
+
 	local currentNode = parentNode.children[key]
 
 	if currentNode == nil then
@@ -167,9 +157,29 @@ function Runtime.scope(fn, ...)
 	return widgetHandle
 end
 
+function Runtime.start(rootNode: Node, fn, ...)
+	if #stack > 0 then
+		error("Runtime.start cannot be called while Runtime.start is already running", 2)
+	end
+
+	if rootNode.generation == 0 then
+		rootNode.generation = 1
+	else
+		rootNode.generation = 0
+	end
+
+	stack[1] = newStackFrame(rootNode)
+	scope(2, fn, ...)
+	table.remove(stack)
+end
+
+function Runtime.scope(fn, ...)
+	return scope(2, fn, ...)
+end
+
 function Runtime.widget(fn)
 	return function(...)
-		return Runtime.scope(fn, ...)
+		return scope(2, fn, ...)
 	end
 end
 
