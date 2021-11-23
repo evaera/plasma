@@ -4,16 +4,6 @@ local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 local RunService = game:GetService("RunService")
 local Plasma = require(ReplicatedStorage.Plasma)
 
--- local plasma = Plasma.new()
--- local ui = plasma:begin()
-
--- ui:window("title", function()
--- 	ui:columns(function()
--- 		if ui:button("Delete item"):clicked() then
--- 		end
--- 	end)
--- end)
-
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "Plasma Test"
 screenGui.Parent = PlayerGui
@@ -24,6 +14,10 @@ local lastShown = 0
 RunService.Heartbeat:Connect(function()
 	local outer
 	Plasma.start(root, function()
+		Plasma.setStyle({
+			backgroundColor = Color3.fromRGB(18, 231, 99),
+		})
+
 		local buttonCount, setButtonCount = Plasma.useState(1)
 
 		Plasma.window("Window Title!", function()

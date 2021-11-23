@@ -1,4 +1,5 @@
 local Runtime = require(script.Runtime)
+local Style = require(script.Style)
 
 return {
 	new = Runtime.new,
@@ -8,6 +9,9 @@ return {
 	useState = Runtime.useState,
 	useInstance = Runtime.useInstance,
 	useEffect = Runtime.useEffect,
+
+	getStyle = Style.get,
+	setStyle = Style.set,
 
 	window = require(script.widgets.window),
 	button = require(script.widgets.button),

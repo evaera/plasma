@@ -1,9 +1,12 @@
 local Runtime = require(script.Parent.Parent.Runtime)
+local Style = require(script.Parent.Parent.Style)
 
 return Runtime.widget(function(title, fn)
 	local instance = Runtime.useInstance(function()
+		local style = Style.get()
+
 		local Frame = Instance.new("Frame")
-		Frame.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+		Frame.BackgroundColor3 = style.bg2
 		Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 		Frame.Size = UDim2.new(0, 50, 0, 40)
@@ -31,7 +34,7 @@ return Runtime.widget(function(title, fn)
 		TextLabel.BackgroundTransparency = 1
 		TextLabel.Font = Enum.Font.GothamBold
 		TextLabel.Size = UDim2.new(0, 200, 0, 40)
-		TextLabel.TextColor3 = Color3.fromRGB(147, 147, 147)
+		TextLabel.TextColor3 = style.mutedTextColor
 		TextLabel.TextSize = 20
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 		TextLabel.TextYAlignment = Enum.TextYAlignment.Top

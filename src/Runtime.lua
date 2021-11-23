@@ -12,10 +12,13 @@ type Node = {
 	generation: number,
 }
 
-type TopoKey = number
+type TopoKey = string
 
 type StackFrame = {
 	node: Node,
+	contextValues: {
+		[any]: any,
+	},
 	effectCounts: TopoKey,
 	stateCounts: TopoKey,
 	childCounts: TopoKey,
@@ -57,6 +60,7 @@ end
 local function newStackFrame(node: Node): StackFrame
 	return {
 		node = node,
+		contextValues = {},
 		effectCounts = {},
 		stateCounts = {},
 		childCounts = {},
@@ -69,6 +73,32 @@ function Runtime.new(rootInstance: Instance): Node
 	local node = newNode()
 	node.instance = rootInstance
 	return node
+end
+
+function Runtime.createContext(name: string)
+	local fullName = string.format("PlasmaContext(%s)", name)
+	return setmetatable({}, {
+		__tostring = function()
+			return fullName
+		end,
+	})
+end
+
+function Runtime.getContext(context)
+	for i = #stack - 1, 1, -1 do
+		local frame = stack[i]
+
+		if frame.contextValues[context] ~= nil then
+			return frame.contextValues[context]
+		end
+	end
+
+	return nil
+end
+
+function Runtime.provideContext(context, value)
+	local frame = stack[#stack]
+	frame.contextValues[context] = value
 end
 
 function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { any }?)

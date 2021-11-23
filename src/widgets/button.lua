@@ -1,14 +1,17 @@
 local Runtime = require(script.Parent.Parent.Runtime)
+local Style = require(script.Parent.Parent.Style)
 
 return Runtime.widget(function(text)
 	local clicked, setClicked = Runtime.useState(false)
 	local instance = Runtime.useInstance(function()
+		local style = Style.get()
+
 		local TextButton = Instance.new("TextButton")
-		TextButton.BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+		TextButton.BackgroundColor3 = style.bg3
 		TextButton.BorderSizePixel = 0
 		TextButton.Font = Enum.Font.SourceSans
 		TextButton.Size = UDim2.new(0, 200, 0, 50)
-		TextButton.TextColor3 = Color3.fromRGB(153, 153, 153)
+		TextButton.TextColor3 = style.textColor
 		TextButton.TextSize = 21
 
 		local UICorner = Instance.new("UICorner")
