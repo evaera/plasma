@@ -15,7 +15,7 @@ RunService.Heartbeat:Connect(function()
 	local outer
 	Plasma.start(root, function()
 		Plasma.setStyle({
-			bg2 = Color3.fromRGB(18, 231, 99),
+			-- bg2 = Color3.fromRGB(18, 231, 99),
 		})
 
 		local buttonCount, setButtonCount = Plasma.useState(1)
@@ -26,7 +26,11 @@ RunService.Heartbeat:Connect(function()
 					if Plasma.button(string.format("Button %d (%s)", i, tostring(buttonCount % i == 0))):clicked() then
 						setButtonCount(buttonCount + 1)
 					end
+					if i == 1 then
+						Plasma.spinner()
+					end
 				end
+				Plasma.spinner()
 			end)
 		end)
 
