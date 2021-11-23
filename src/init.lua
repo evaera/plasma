@@ -19,4 +19,5 @@ return {
 	blur = require(script.widgets.blur),
 	row = require(script.widgets.row),
 	spinner = require(script.widgets.spinner),
+	checkbox = require(script.widgets.checkbox),
 }

@@ -23,6 +23,9 @@
       "$path": "Packages",
       "Plasma": {
         "$path": "src"
+      },
+      "Stories": {
+        "$path": "stories"
       }
     },
     "TestService": {

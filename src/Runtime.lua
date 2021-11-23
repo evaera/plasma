@@ -122,8 +122,9 @@ function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { 
 		or dependencies == nil -- The user didn't specify any dependencies.
 		or #dependencies ~= #existing.lastDependencies -- I have altered the dependencies. Pray that I do not alter them further.
 
+	-- TODO: improve dependency comparison
 	if not gottaRunIt then
-		for i, last in ipairs(existing.lastDependencies) do
+		for i, last in pairs(existing.lastDependencies) do
 			if dependencies[i] ~= last then
 				gottaRunIt = true
 				break
