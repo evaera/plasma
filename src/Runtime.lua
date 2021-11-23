@@ -25,6 +25,7 @@ type StackFrame = {
 }
 
 local stack: { StackFrame } = {}
+local yieldedThread
 
 local function newNode(state: {}): Node
 	if state == nil then
@@ -239,6 +240,14 @@ local function scope(level, fn, ...)
 end
 
 function Runtime.start(rootNode: Node, fn, ...)
+	if yieldedThread then
+		if coroutine.status(yieldedThread) ~= "dead" then
+			return
+		end
+		yieldedThread = nil
+		warn("Plasma: Erroneously yielded thread has resumed, UI is no longer blocked.")
+	end
+
 	if #stack > 0 then
 		error("Runtime.start cannot be called while Runtime.start is already running", 2)
 	end
@@ -249,8 +258,26 @@ function Runtime.start(rootNode: Node, fn, ...)
 		rootNode.generation = 0
 	end
 
+	local handler = function(...)
+		local thread = coroutine.running()
+
+		task.defer(function()
+			if coroutine.status(thread) ~= "dead" then
+				task.spawn(
+					error,
+					"Plasma: Handler passed to Plasma.start yielded! Yielding is not allowed and will lead to unexpected results."
+				)
+				warn("Plasma UI will not update until the yielded thread has resumed...")
+
+				yieldedThread = thread
+			end
+		end)
+
+		return fn(...)
+	end
+
 	stack[1] = newStackFrame(rootNode)
-	scope(2, fn, ...)
+	scope(2, handler, ...)
 	table.remove(stack)
 end
 
