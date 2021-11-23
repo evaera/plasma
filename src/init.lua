@@ -17,4 +17,5 @@ return {
 	button = require(script.widgets.button),
 	portal = require(script.widgets.portal),
 	blur = require(script.widgets.blur),
+	row = require(script.widgets.row),
 }

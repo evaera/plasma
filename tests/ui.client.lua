@@ -15,17 +15,19 @@ RunService.Heartbeat:Connect(function()
 	local outer
 	Plasma.start(root, function()
 		Plasma.setStyle({
-			backgroundColor = Color3.fromRGB(18, 231, 99),
+			bg2 = Color3.fromRGB(18, 231, 99),
 		})
 
 		local buttonCount, setButtonCount = Plasma.useState(1)
 
 		Plasma.window("Window Title!", function()
-			for i = 1, buttonCount do
-				if Plasma.button(string.format("Button %d (%s)", i, tostring(buttonCount % i == 0))):clicked() then
-					setButtonCount(buttonCount + 1)
+			Plasma.row(function()
+				for i = 1, buttonCount do
+					if Plasma.button(string.format("Button %d (%s)", i, tostring(buttonCount % i == 0))):clicked() then
+						setButtonCount(buttonCount + 1)
+					end
 				end
-			end
+			end)
 		end)
 
 		if buttonCount % 2 == 0 then
@@ -37,6 +39,6 @@ RunService.Heartbeat:Connect(function()
 
 	if lastShown ~= outer then
 		lastShown = outer
-		print(root)
+		-- print(root)
 	end
 end)
