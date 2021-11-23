@@ -1,5 +1,6 @@
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
+local automaticSize = require(script.Parent.Parent.automaticSize)
 
 return Runtime.widget(function(title, fn)
 	local instance = Runtime.useInstance(function()
@@ -10,7 +11,6 @@ return Runtime.widget(function(title, fn)
 		Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 		Frame.Size = UDim2.new(0, 50, 0, 40)
-		Frame.AutomaticSize = Enum.AutomaticSize.XY
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.Parent = Frame
@@ -40,16 +40,24 @@ return Runtime.widget(function(title, fn)
 		TextLabel.TextYAlignment = Enum.TextYAlignment.Top
 		TextLabel.Parent = Frame
 
-		local Container = Instance.new("Frame")
+		local Container = Instance.new("ScrollingFrame")
 		Container.BackgroundTransparency = 1
 		Container.Name = "Container"
-		Container.AutomaticSize = Enum.AutomaticSize.XY
+		Container.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+		Container.HorizontalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+		Container.BorderSizePixel = 0
+		Container.ScrollBarThickness = 6
 		Container.Parent = Frame
 
 		local UIListLayout2 = Instance.new("UIListLayout")
 		UIListLayout2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout2.Parent = Container
 		UIListLayout2.Padding = UDim.new(0, 10)
+
+		automaticSize(Frame)
+		automaticSize(Container, {
+			maxSize = Vector2.new(300, 500),
+		})
 
 		return Frame, Container
 	end)
