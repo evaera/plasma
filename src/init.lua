@@ -7,6 +7,7 @@ return {
 	widget = Runtime.widget,
 	useState = Runtime.useState,
 	useInstance = Runtime.useInstance,
+	useEffect = Runtime.useEffect,
 
 	window = require(script.widgets.window),
 	button = require(script.widgets.button),

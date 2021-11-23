@@ -1,8 +1,14 @@
 type Node = {
 	instance: Instance?,
 	containerInstance: Instance?,
-	states: { [any]: any },
-	children: { [any]: Node },
+	effects: {
+		[TopoKey]: {
+			lastDependencies: { any }?,
+			destructor: (() -> ())?,
+		},
+	},
+	states: { [TopoKey]: any },
+	children: { [TopoKey]: Node },
 	generation: number,
 }
 
@@ -10,6 +16,7 @@ type TopoKey = number
 
 type StackFrame = {
 	node: Node,
+	effectCounts: TopoKey,
 	stateCounts: TopoKey,
 	childCounts: TopoKey,
 }
@@ -24,6 +31,7 @@ local function newNode(state: {}): Node
 	return {
 		instance = nil,
 		containerInstance = nil,
+		effects = {},
 		states = {},
 		children = {},
 		generation = 0,
@@ -35,6 +43,12 @@ local function destroyNode(node: Node)
 		node.instance:Destroy()
 	end
 
+	for _, effect in pairs(node.effects) do
+		if effect.destructor ~= nil then
+			effect.destructor()
+		end
+	end
+
 	for _, child in pairs(node.children) do
 		destroyNode(child)
 	end
@@ -43,6 +57,7 @@ end
 local function newStackFrame(node: Node): StackFrame
 	return {
 		node = node,
+		effectCounts = {},
 		stateCounts = {},
 		childCounts = {},
 	}
@@ -54,6 +69,42 @@ function Runtime.new(rootInstance: Instance): Node
 	local node = newNode()
 	node.instance = rootInstance
 	return node
+end
+
+function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { any }?)
+	local frame = stack[#stack]
+	local effects = frame.node.effects
+
+	local file = debug.info(2, "s")
+	local line = debug.info(2, "l")
+	local baseKey = string.format("%s:%d", file, line)
+	frame.effectCounts[baseKey] = (frame.effectCounts[baseKey] or 0) + 1
+	local key = string.format("%s:%d", baseKey, frame.effectCounts[baseKey])
+
+	local existing = effects[key]
+	local gottaRunIt = existing == nil -- We ain't never run this before!
+		or dependencies == nil -- The user didn't specify any dependencies.
+		or #dependencies ~= #existing.lastDependencies -- I have altered the dependencies. Pray that I do not alter them further.
+
+	if not gottaRunIt then
+		for i, last in ipairs(existing.lastDependencies) do
+			if dependencies[i] ~= last then
+				gottaRunIt = true
+				break
+			end
+		end
+	end
+
+	if gottaRunIt then
+		if existing ~= nil and existing.destructor ~= nil then
+			existing.destructor()
+		end
+
+		effects[key] = {
+			destructor = callback(),
+			lastDependencies = dependencies,
+		}
+	end
 end
 
 function Runtime.useState<T>(initialValue: T): T

@@ -28,7 +28,7 @@ RunService.Heartbeat:Connect(function()
 
 		Plasma.window("Window Title!", function()
 			for i = 1, buttonCount do
-				if Plasma.button("Button " .. i):clicked() then
+				if Plasma.button(string.format("Button %d (%s)", i, tostring(buttonCount % i == 0))):clicked() then
 					setButtonCount(buttonCount + 1)
 				end
 			end

@@ -22,6 +22,7 @@ return Runtime.widget(function(text)
 	end)
 
 	instance.Text = text
+
 	instance.LayoutOrder = Runtime.childNumber()
 
 	local handle = {
