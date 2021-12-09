@@ -15,7 +15,7 @@
       "$className": "StarterPlayer",
       "StarterPlayerScripts": {
         "$className": "StarterPlayerScripts",
-        "$path": "tests"
+        "$path": "example"
       }
     },
     "ReplicatedStorage": {
@@ -26,6 +26,9 @@
       },
       "Stories": {
         "$path": "stories"
+      },
+      "Tests": {
+        "$path": "tests"
       }
     },
     "TestService": {

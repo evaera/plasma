@@ -300,6 +300,13 @@ function Runtime.start(rootNode: Node, fn, ...)
 	stack[1] = newStackFrame(rootNode)
 	scope(2, handler, ...)
 	table.remove(stack)
+
+	for childKey, childNode in pairs(rootNode.children) do
+		if childNode.generation ~= rootNode.generation then
+			destroyNode(childNode)
+			rootNode.children[childKey] = nil
+		end
+	end
 end
 
 function Runtime.scope(fn, ...)

@@ -20,4 +20,5 @@ return {
 	row = require(script.widgets.row),
 	spinner = require(script.widgets.spinner),
 	checkbox = require(script.widgets.checkbox),
+	arrow = require(script.widgets.arrow),
 }
