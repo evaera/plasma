@@ -1,3 +1,13 @@
+--[=[
+	@within Plasma
+	@function spinner
+	@tag widgets
+
+	A spinner widget, indicating loading.
+
+	![A spinner](https://i.eryn.io/2150/RobloxStudioBeta-sEyci8qy.png)
+]=]
+
 local RunService = game:GetService("RunService")
 local Runtime = require(script.Parent.Parent.Runtime)
 

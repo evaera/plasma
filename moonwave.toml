@@ -1,0 +1,30 @@
+apiCategories = ["hooks", "utilities", "style", "widgets"]
+gitSourceBranch = "main"
+
+[docusaurus]
+url = "https://eryn.io"
+tagline = "Immediate-mode widget library for Roblox"
+
+[[navbar.items]]
+href = "https://discord.gg/aQwDAYhqtJ"
+label = "Roblox Open Source Discord"
+position = "right"
+
+[home]
+enabled = true
+includeReadme = false
+
+[[home.features]]
+title = "Immediate-mode UI"
+description = "Your UI code runs every frame, which makes making UI a breeze"
+image = "https://i.eryn.io/2150/carbon3.png"
+
+[[home.features]]
+title = "Built-in widgets"
+description = "Built-in widgets make it trivial to create a debug panel for any system in your game"
+image = "https://i.eryn.io/2150/checkboxes3.png"
+
+[[home.features]]
+title = "Gizmos"
+description = "Easily create debug UI and gizmos in the 3D world for debugging"
+image = "https://i.eryn.io/2150/arrows3.png"

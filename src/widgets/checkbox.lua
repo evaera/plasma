@@ -1,3 +1,41 @@
+--[=[
+	@within Plasma
+	@function checkbox
+	@tag widgets
+	@param label string -- The label for the checkbox
+	@param options {disabled: boolean, checked: boolean}
+	@return CheckboxWidgetHandle
+
+	A checkbox. A checkbox may either be controlled or uncontrolled.
+
+	By passing the `checked` field in `options`, you make the checkbox controlled. Controlling the checkbox means that
+	the checked state is controlled by your code. Otherwise, the controlled state is controlled by the widget itself.
+
+	Returns a widget handle, which has the fields:
+
+	- `checked`, a function you can call to check if the checkbox is checked
+	- `clicked`, a function you can call to check if the checkbox was clicked this frame
+
+	![Checkboxes](https://i.eryn.io/2150/9Yg31gc8.png)
+
+	```lua
+	Plasma.window("Checkboxes", function()
+		if Plasma.checkbox("Controlled checkbox", {
+			checked = checked,
+		}):clicked() then
+			checked = not checked
+		end
+
+		Plasma.checkbox("Disabled checkbox", {
+			checked = checked,
+			disabled = true,
+		})
+
+		Plasma.checkbox("Uncontrolled checkbox")
+	end)
+	```
+]=]
+
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)

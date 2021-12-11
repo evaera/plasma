@@ -1,3 +1,20 @@
+--[=[
+	@within Plasma
+	@function window
+	@param title string -- The title of the window
+	@param children () -> () -- Children
+	@tag widgets
+
+	A window widget. Contains children.
+
+	In the future:
+	- Closable
+	- Draggable
+	- Resizable
+
+	![Window with checkboxes](https://i.eryn.io/2150/TVkkOnxj.png)
+]=]
+
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
 local automaticSize = require(script.Parent.Parent.automaticSize)

@@ -51,6 +51,18 @@ end
 
 local defaultOptions = {}
 
+--[=[
+	@within Plasma
+	@function automaticSize
+	@param container GuiObject -- The instance to apply automatic sizing to.
+	@param options { axis: Enum.AutomaticSize, maxSize: Vector2} | nil
+	@tag utilities
+
+	Applies padding-aware automatic size to the given GUI instance. This function sets up events to listen to further changes, so
+	should only be called once per object.
+
+	Also supports ScrollingFrames by correctly clamping actual and canvas sizes.
+]=]
 local function automaticSize(container, options)
 	options = options or defaultOptions
 

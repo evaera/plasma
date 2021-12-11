@@ -75,12 +75,25 @@ end
 
 local Runtime = {}
 
+--[=[
+	@within Plasma
+	@param rootInstance Instance -- The root instance of which to mount all children. Likely a ScreenGui.
+	@return Node -- An opaque object which holds persistent state about your UI.
+]=]
 function Runtime.new(rootInstance: Instance): Node
 	local node = newNode()
 	node.instance = rootInstance
 	return node
 end
 
+--[=[
+	@within Plasma
+	@param name string -- The human-readable name of the context. This is only for debug purposes.
+	@return Context -- An opqaue Context object which holds persistent state.
+
+	Creates a [Context] object which is used to pass state downwards through the tree without needing to thread it
+	through every child as props.
+]=]
 function Runtime.createContext(name: string)
 	local fullName = string.format("PlasmaContext(%s)", name)
 	return setmetatable({}, {
@@ -90,7 +103,15 @@ function Runtime.createContext(name: string)
 	})
 end
 
-function Runtime.getContext(context)
+--[=[
+	@within Plasma
+	@param context Context -- A context object previously created with `createContext`
+	@return T
+	@tag hooks
+
+	Returns the value of this context provided by the most recent ancestor that used `provideContext` with this context.
+]=]
+function Runtime.useContext(context)
 	for i = #stack - 1, 1, -1 do
 		local frame = stack[i]
 
@@ -102,11 +123,30 @@ function Runtime.getContext(context)
 	return nil
 end
 
+--[=[
+	@within Plasma
+	@param context Context -- A context object previously created with `createContext`
+	@param value T -- Any value you want to provide for this context
+
+	Provides a value for this context for any subsequent uses of `useContext` in this scope.
+]=]
 function Runtime.provideContext(context, value)
 	local frame = stack[#stack]
 	frame.contextValues[context] = value
 end
 
+--[=[
+	@within Plasma
+	@param callback () -> () -> () -- A callback function that optionally returns a cleanup function
+	@param dependencies {T} -- TODO : Make this variadic instead
+	@tag hooks
+
+	`useEffect` takes a callback as a parameter which is then only invoked if `dependencies` are different from the
+	last time this function was called. The callback is always invoked the first time this code path is reached.
+
+	This function can be used to skip expensive work if none of the dependencies have changed since the last run.
+	For example, you might use this to set a bunch of properties in a widget if any of the inputs change.
+]=]
 function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { any }?)
 	local frame = stack[#stack]
 	local effects = frame.node.effects
@@ -144,6 +184,29 @@ function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { 
 	end
 end
 
+--[=[
+	@within Plasma
+	@param initialValue T -- The value this hook returns if the set callback has never been called
+	@return T -- The previously set value, or the initial value if none has been set
+	@return (newValue: T) -> () -- A function which when called stores the value in this hook for the next run
+	@tag hooks
+
+	```lua
+	local checked, setChecked = useState(false)
+
+	useInstance(function()
+		local TextButton = Instance.new("TextButton")
+
+		TextButton.Activated:Connect(function()
+			setChecked(not checked)
+		end)
+
+		return TextButton
+	end)
+
+	TextButton.Text = if checked then "X" else ""
+	```
+]=]
 function Runtime.useState<T>(initialValue: T): T
 	local frame = stack[#stack]
 	local states = frame.node.states
@@ -170,6 +233,20 @@ function Runtime.useState<T>(initialValue: T): T
 	return states[key], setter
 end
 
+--[=[
+	@within Plasma
+	@param creator () -> (Instance, Instance?) -- A callback which creates the widget and returns it
+	@return Instance -- Returns the instance returned by `creator`
+	@tag hooks
+
+	`useInstance` takes a callback which should be used to create the initial UI for the widget.
+	The callback is only ever invoked on the first time this widget runs and never again.
+	The callback should return the instance it created.
+	The callback can optionally return a second value, which is the instance where children of this widget should be
+	placed. Otherwise, children are placed in the first instance returned.
+
+	`useInstance` returns the instance returned by the `creator` callback on the initial call and all further calls.
+]=]
 function Runtime.useInstance(creator: () -> Instance): Instance
 	local node = stack[#stack].node
 	local parentFrame = Runtime.nearestStackFrameWithInstance()
@@ -260,6 +337,16 @@ local function scope(level, fn, ...)
 	return widgetHandle
 end
 
+--[=[
+	@within Plasma
+	@param rootNode Node -- A node created by `Plasma.new`.
+	@param callback (...: T) -> ()
+	@param ... T -- Additional parameters to `callback`
+
+	Begins a new frame for this Plasma instance. The `callback` is invoked immediately.
+	Code run in the `callback` function that uses plasma APIs will be associated with this Plasma node.
+	The `callback` function is **not allowed to yield**.
+]=]
 function Runtime.start(rootNode: Node, fn, ...)
 	if yieldedThread then
 		if coroutine.status(yieldedThread) ~= "dead" then
@@ -272,6 +359,8 @@ function Runtime.start(rootNode: Node, fn, ...)
 	if #stack > 0 then
 		error("Runtime.start cannot be called while Runtime.start is already running", 2)
 	end
+
+	debug.profilebegin("Plasma")
 
 	if rootNode.generation == 0 then
 		rootNode.generation = 1
@@ -307,12 +396,32 @@ function Runtime.start(rootNode: Node, fn, ...)
 			rootNode.children[childKey] = nil
 		end
 	end
+
+	debug.profileend()
 end
 
+--[=[
+	@within Plasma
+	@param callback (...: T) -> ()
+	@param ... T -- Additional parameters to `callback`
+
+	Begins a new scope. This function may only be called within a `Plasma.start` callback.
+	The `callback` is invoked immediately.
+
+	Beginning a new scope associates all further calls to Plasma APIs with a nested scope inside this one.
+]=]
 function Runtime.scope(fn, ...)
 	return scope(2, fn, ...)
 end
 
+--[=[
+	@within Plasma
+	@param callback (...: T) -> () -- The widget function
+	@return (...: T) -> () -- A function which can be called to create the widget
+
+	This function takes a widget funtion and returns a function that automatically starts a new scope when the function
+	is called.
+]=]
 function Runtime.widget(fn)
 	return function(...)
 		return scope(2, fn, ...)

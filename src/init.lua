@@ -1,3 +1,5 @@
+--- @class Plasma
+
 local Runtime = require(script.Runtime)
 local Style = require(script.Style)
 
@@ -10,8 +12,11 @@ return {
 	useInstance = Runtime.useInstance,
 	useEffect = Runtime.useEffect,
 
-	getStyle = Style.get,
+	useStyle = Style.get,
 	setStyle = Style.set,
+
+	automaticSize = require(script.automaticSize),
+	create = require(script.create),
 
 	window = require(script.widgets.window),
 	button = require(script.widgets.button),

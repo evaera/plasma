@@ -12,12 +12,28 @@ local defaultStyle = {
 
 local Style = {}
 
+--[=[
+	@within Plasma
+	@function useStyle
+	@tag style
+
+	Returns the current style information, with styles that are set more recently in the tree overriding styles that
+	were set further up. In this way, styles cascade downwards, similar to CSS.
+]=]
 function Style.get()
-	return Runtime.getContext(ContextKey) or defaultStyle
+	return Runtime.useContext(ContextKey) or defaultStyle
 end
 
+--[=[
+	@within Plasma
+	@function setStyle
+	@tag style
+	@param styleFragment {[string]: any} -- A dictionary of style information
+
+	Defines style for any subsequent calls in this scope. Merges with any existing styles.
+]=]
 function Style.set(styleFragment)
-	local existing = Runtime.getContext(ContextKey) or defaultStyle
+	local existing = Runtime.useContext(ContextKey) or defaultStyle
 	local newStyle = {}
 
 	for key, value in pairs(existing) do

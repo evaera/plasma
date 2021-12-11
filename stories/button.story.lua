@@ -1,8 +1,6 @@
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Plasma = require(ReplicatedStorage.Plasma)
-local window = Plasma.window
-local checkbox = Plasma.checkbox
 
 return function(target)
 	local root = Plasma.new(target)
@@ -11,19 +9,10 @@ return function(target)
 
 	local connection = RunService.Heartbeat:Connect(function()
 		Plasma.start(root, function()
-			window("Checkboxes", function()
-				if checkbox("Controlled checkbox", {
-					checked = checked,
-				}):clicked() then
-					checked = not checked
+			Plasma.window("Button", function()
+				if Plasma.button("button text"):clicked() then
+					print("clicked!")
 				end
-
-				checkbox("Disabled checkbox", {
-					checked = checked,
-					disabled = true,
-				})
-
-				checkbox("Uncontrolled checkbox")
 			end)
 		end)
 	end)

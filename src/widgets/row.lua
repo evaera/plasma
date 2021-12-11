@@ -1,3 +1,13 @@
+--[=[
+	@within Plasma
+	@function row
+	@tag widgets
+	@param options {padding: Vector2}
+	@param children () -> () -- Children
+
+	Lays out children horizontally
+]=]
+
 local Runtime = require(script.Parent.Parent.Runtime)
 local automaticSize = require(script.Parent.Parent.automaticSize)
 
@@ -15,7 +25,7 @@ return Runtime.widget(function(options, fn)
 		options.padding = UDim.new(0, 10)
 	end
 
-	Runtime.useInstance(function()
+	local frame = Runtime.useInstance(function()
 		local Frame = Instance.new("Frame")
 		Frame.BackgroundTransparency = 1
 
@@ -29,6 +39,8 @@ return Runtime.widget(function(options, fn)
 
 		return Frame
 	end)
+
+	frame.UIListLayout.HorizontalAlignment = options.alignment or Enum.HorizontalAlignment.Left
 
 	Runtime.scope(fn)
 end)

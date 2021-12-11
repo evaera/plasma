@@ -1,3 +1,27 @@
+--[=[
+	@within Plasma
+	@function button
+	@tag widgets
+	@param label string -- The label for the checkbox
+	@return ButtonWidgetHandle
+
+	A text button.
+
+	Returns a widget handle, which has the field:
+
+	- `clicked`, a function you can call to check if the checkbox was clicked this frame
+
+	![A button](https://i.eryn.io/2150/RobloxStudioBeta-iwRM0RMx.png)
+
+	```lua
+	Plasma.window("Button", function()
+		if Plasma.button("button text"):clicked() then
+			print("clicked!")
+		end
+	end)
+	```
+]=]
+
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
 
