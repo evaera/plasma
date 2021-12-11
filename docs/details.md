@@ -25,3 +25,13 @@ By default, widgets are laid out vertically. You can lay widgets out horizontall
 In the future, there will be more widgets that allow users to customize layout more easily.
 
 Plasma automatically sets the `LayoutOrder` property of children widgets to the correct value.
+
+## Error reporting
+
+By default, errors that occur during layout are reported visually in the UI, bounded at the scope level.
+
+![Example of error](https://i.eryn.io/2150/n1AsMbhS.png)
+
+Since your code runs every frame, errors that happen every frame can fill up the output quickly. To mitigate this, Plasma will only allow repeated errors to be reported in the output once every 10 seconds:
+
+![Example of output](https://i.eryn.io/2150/xmBJqQDQ.png)
