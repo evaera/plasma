@@ -4,6 +4,7 @@
 	@tag widgets
 	@param from Vector3 | CFrame | BasePart
 	@param to Vector3 | BasePart | nil
+	@param color Color3? -- Optional color. Random if not specified.
 
 	- `arrow(from: Vector3, to: Vector3)` -> Creates an arrow between `from` and `to`
 	- `arrow(point: Vector3)` -> Creates an arrow pointing at `point`

@@ -3,6 +3,7 @@
 	@function create
 	@param className string -- The class name of the Instance to create
 	@param props CreateProps
+	@return Instance -- The created instance
 	@tag utilities
 
 	A function that creates an Instance tree.
@@ -11,6 +12,8 @@
 	- String keys are interpreted as properties to set
 	- Numerical keys are interpreted as children
 	- Function values are interpreted as event handlers
+
+	This function doesn't do anything special. It just creates an instance.
 
 	```lua
 	create("Frame", {
