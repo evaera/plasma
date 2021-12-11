@@ -12,4 +12,4 @@ Even if code runs multiple times in a single frame, state will always be separat
 
 If called in a loop, hooks hold state by number of times that line was called consecutively.
 
-Check out the [API reference](/api/useContext) to learn more.
+Check out the [API reference](/api#useContext) to learn more.
