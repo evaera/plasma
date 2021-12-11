@@ -4,6 +4,7 @@ type Node = {
 	effects: {
 		[TopoKey]: {
 			lastDependencies: { any }?,
+			lastDependenciesLength: number,
 			destructor: (() -> ())?,
 		},
 	},
@@ -137,17 +138,19 @@ end
 
 --[=[
 	@within Plasma
-	@param callback () -> () -> () -- A callback function that optionally returns a cleanup function
-	@param dependencies {T} -- TODO : Make this variadic instead
+	@param callback () -> () | () -> () -> () -- A callback function that optionally returns a cleanup function
+	@param ... any -- Dependencies
 	@tag hooks
 
-	`useEffect` takes a callback as a parameter which is then only invoked if `dependencies` are different from the
+	`useEffect` takes a callback as a parameter which is then only invoked if passed dependencies are different from the
 	last time this function was called. The callback is always invoked the first time this code path is reached.
+
+	If no dependencies are passed, the callback only runs once.
 
 	This function can be used to skip expensive work if none of the dependencies have changed since the last run.
 	For example, you might use this to set a bunch of properties in a widget if any of the inputs change.
 ]=]
-function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { any }?)
+function Runtime.useEffect(callback: () -> () | () -> () -> (), ...)
 	local frame = stack[#stack]
 	local effects = frame.node.effects
 
@@ -159,13 +162,11 @@ function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { 
 
 	local existing = effects[key]
 	local gottaRunIt = existing == nil -- We ain't never run this before!
-		or dependencies == nil -- The user didn't specify any dependencies.
-		or #dependencies ~= #existing.lastDependencies -- I have altered the dependencies. Pray that I do not alter them further.
+		or select("#", ...) ~= existing.lastDependenciesLength -- I have altered the dependencies. Pray that I do not alter them further.
 
-	-- TODO: improve dependency comparison
 	if not gottaRunIt then
-		for i, last in pairs(existing.lastDependencies) do
-			if dependencies[i] ~= last then
+		for i = 1, select("#", ...) do
+			if select(i, ...) ~= existing.lastDependencies[i] then
 				gottaRunIt = true
 				break
 			end
@@ -179,7 +180,8 @@ function Runtime.useEffect(callback: () -> () | () -> () -> (), dependencies: { 
 
 		effects[key] = {
 			destructor = callback(),
-			lastDependencies = dependencies,
+			lastDependencies = { ... },
+			lastDependenciesLength = select("#", ...),
 		}
 	end
 end

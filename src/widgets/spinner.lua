@@ -36,5 +36,5 @@ return Runtime.widget(function()
 		return function()
 			connection:Disconnect()
 		end
-	end, {})
+	end)
 end)

@@ -104,17 +104,12 @@ return Runtime.widget(function(text, options)
 		end
 
 		instance.TextButton.Text = isChecked and "✓" or ""
-	end, {
-		options.checked,
-		checked,
-	})
+	end, options.checked, checked)
 
 	Runtime.useEffect(function()
 		instance.TextButton.BackgroundColor3 = options.disabled and Color3.fromRGB(112, 112, 112)
 			or Color3.fromRGB(54, 54, 54)
-	end, {
-		options.disabled,
-	})
+	end, options.disabled)
 
 	local handle = {
 		checked = function()
