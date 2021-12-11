@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="Docusaurus v2.0.0-beta.9">
+<title data-react-helmet="true">Plasma | plasma</title><meta data-react-helmet="true" property="og:title" content="Plasma | plasma"><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" property="og:url" content="https://eryn.io/plasma/api/Plasma"><meta data-react-helmet="true" name="docusaurus_locale" content="en"><meta data-react-helmet="true" name="docusaurus_tag" content="default"><link data-react-helmet="true" rel="canonical" href="https://eryn.io/plasma/api/Plasma"><link data-react-helmet="true" rel="alternate" href="https://eryn.io/plasma/api/Plasma" hreflang="en"><link data-react-helmet="true" rel="alternate" href="https://eryn.io/plasma/api/Plasma" hreflang="x-default"><link rel="stylesheet" href="/plasma/assets/css/styles.ea555ebc.css">
+<link rel="preload" href="/plasma/assets/js/runtime~main.f60e7e20.js" as="script">
+<link rel="preload" href="/plasma/assets/js/main.f8e1d56c.js" as="script">
+</head>
+<body>
+<script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
+<div><a href="#" class="skipToContent_1oUP">Skip to main content</a></div><nav class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Navigation bar toggle" class="navbar__toggle clean-btn" type="button" tabindex="0"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/plasma/"><b class="navbar__title">plasma</b></a><a class="navbar__item navbar__link" href="/plasma/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/plasma/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://discord.gg/aQwDAYhqtJ" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link"><span>Roblox Open Source Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_3J9K"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></span></a><a href="https://github.com/evaera/plasma" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link"><span>GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_3J9K"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></span></a><div class="toggle_71bT toggle_3Zt9 toggleDisabled_3cF-"><div class="toggleTrack_32Fl" role="button" tabindex="-1"><div class="toggleTrackCheck_3lV7"><span class="toggleIcon_O4iE">🌜</span></div><div class="toggleTrackX_S2yS"><span class="toggleIcon_O4iE">🌞</span></div><div class="toggleTrackThumb_xI_Z"></div></div><input type="checkbox" class="toggleScreenReader_28Tw" aria-label="Switch between dark and light mode"></div><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Press S to Search..." aria-label="Search" class="navbar__search-input search-bar"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div class="main-wrapper docPageContainer_3ccu"><div class="docPage_8QDt"><div class="docSidebarContainer_1Ern"><div class="sidebar_15mo"><nav class="menu thin-scrollbar menu_Bmed"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/plasma/api/Plasma">​Plasma</a></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_1CGd"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_3E-R"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div><main class="docMainContainer_27Zo"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_N2vh"><div class="docItemContainer_3H03"><article><div class="member_2635 markdown"><div class="tocCollapsible_1PrD theme-doc-toc-mobile tocMobile_30Sy"><button type="button" class="clean-btn tocCollapsibleButton_2O1e">On this page</button></div><header><h1 class="docTitle_GF7h" style="text-decoration:none"><span style="display:inline-block">Plasma</span></h1><div class="luaClassTags_Ddhq"></div><div></div></header><h2 class="anchor anchorWithStickyNavbar_31ik" id="functions">Functions<a aria-hidden="true" class="hash-link" href="#functions" title="Direct link to heading">​</a></h2><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="automaticSize"><code style="text-decoration:none">automaticSize</code><a aria-hidden="true" class="hash-link" href="#automaticSize" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#70cc00;color:#70cc00">utilities</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/automaticSize.lua#L66"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">automaticSize</code><code>(</code><div class="inset_2aGl"><div><code>container<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/GuiObject" target="_blank" rel="noopener noreferrer">GuiObject<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>The instance to apply automatic sizing to.</p>
+</span></span></div><div><code>options<!-- -->: </code><code class="op_EBMF">{</code><code>axis<!-- -->: </code><code class="blue_1B1Q">Enum.AutomaticSize,</code><code>maxSize<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Vector2" target="_blank" rel="noopener noreferrer">Vector2<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_EBMF">}</code><code class="op_EBMF"> | </code><code class="blue_1B1Q">nil</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>
+  Applies padding-aware automatic size to the given GUI instance. This function sets up events to listen to further changes, so
+  should only be called once per object.
+</p>
+<p>Also supports ScrollingFrames by correctly clamping actual and canvas sizes.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="create"><code style="text-decoration:none">create</code><a aria-hidden="true" class="hash-link" href="#create" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#70cc00;color:#70cc00">utilities</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/create.lua#L34"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">create</code><code>(</code><div class="inset_2aGl"><div><code>className<!-- -->: </code><code class="blue_1B1Q">string</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>The class name of the Instance to create</p>
+</span></span></div><div><code>props<!-- -->: </code><code class="blue_1B1Q">CreateProps</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>A function that creates an Instance tree.</p>
+<p>CreateProps is a table:</p>
+<ul>
+  <li>String keys are interpreted as properties to set</li>
+  <li>Numerical keys are interpreted as children</li>
+  <li>Function values are interpreted as event handlers</li>
+</ul>
+<pre class="language-lua"><code class="language-lua"><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"Frame"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+	BackgroundTransparency <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	Name <span class="token operator">=</span> <span class="token string">"Checkbox"</span><span class="token punctuation">,</span>
+
+	<span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"TextButton"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+		BackgroundColor3 <span class="token operator">=</span> Color3<span class="token punctuation">.</span><span class="token function">fromRGB</span><span class="token punctuation">(</span><span class="token number">54</span><span class="token punctuation">,</span> <span class="token number">54</span><span class="token punctuation">,</span> <span class="token number">54</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		Size <span class="token operator">=</span> UDim2<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+		<span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"UICorner"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+			CornerRadius <span class="token operator">=</span> UDim<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+		Activated <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token function">setClicked</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span>
+		<span class="token keyword">end</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+</code></pre>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="new"><code style="text-decoration:none">new</code><a aria-hidden="true" class="hash-link" href="#new" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L84"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">new</code><code>(</code><div class="inset_2aGl"><div><code>rootInstance<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><span class="inlineDescription_30X9">-- <span>
+<p>The root instance of which to mount all children. Likely a ScreenGui.</p>
+</span></span></div></div><code>) → </code><code class="blue_1B1Q">Node</code><span class="inlineDescription_30X9">-- <span>
+<p>An opaque object which holds persistent state about your UI.</p>
+</span></span></div><div></div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="createContext"><code style="text-decoration:none">createContext</code><a aria-hidden="true" class="hash-link" href="#createContext" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L98"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">createContext</code><code>(</code><div class="inset_2aGl"><div><code>name<!-- -->: </code><code class="blue_1B1Q">string</code><span class="inlineDescription_30X9">-- <span>
+<p>The human-readable name of the context. This is only for debug purposes.</p>
+</span></span></div></div><code>) → </code><code class="blue_1B1Q">Context</code><span class="inlineDescription_30X9">-- <span>
+<p>An opqaue Context object which holds persistent state.</p>
+</span></span></div><div>
+<p>
+  Creates a [Context] object which is used to pass state downwards through the tree without needing to thread it
+  through every child as props.
+</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="useContext"><code style="text-decoration:none">useContext</code><a aria-hidden="true" class="hash-link" href="#useContext" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#925FB9;color:#925FB9">hooks</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L115"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">useContext</code><code>(</code><div class="inset_2aGl"><div><code>context<!-- -->: </code><code class="blue_1B1Q">Context</code><span class="inlineDescription_30X9">-- <span>
+<p>A context object previously created with <code>createContext</code></p>
+</span></span></div></div><code>) → </code><code class="blue_1B1Q">T</code></div><div>
+<p>Returns the value of this context provided by the most recent ancestor that used <code>provideContext</code> with this context.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="provideContext"><code style="text-decoration:none">provideContext</code><a aria-hidden="true" class="hash-link" href="#provideContext" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L134"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">provideContext</code><code>(</code><div class="inset_2aGl"><div><code>context<!-- -->: </code><code class="blue_1B1Q">Context</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>A context object previously created with <code>createContext</code></p>
+</span></span></div><div><code>value<!-- -->: </code><code class="blue_1B1Q">T</code><span class="inlineDescription_30X9">-- <span>
+<p>Any value you want to provide for this context</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Provides a value for this context for any subsequent uses of <code>useContext</code> in this scope.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="useEffect"><code style="text-decoration:none">useEffect</code><a aria-hidden="true" class="hash-link" href="#useEffect" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#925FB9;color:#925FB9">hooks</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L153"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">useEffect</code><code>(</code><div class="inset_2aGl"><div><code>callback<!-- -->: </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="op_EBMF"> | </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>A callback function that optionally returns a cleanup function</p>
+</span></span></div><div><code>...<!-- -->: </code><code class="blue_1B1Q">any</code><span class="inlineDescription_30X9">-- <span>
+<p>Dependencies</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>
+  <code>useEffect</code> takes a callback as a parameter which is then only invoked if passed dependencies are different from the
+  last time this function was called. The callback is always invoked the first time this code path is reached.
+</p>
+<p>If no dependencies are passed, the callback only runs once.</p>
+<p>
+  This function can be used to skip expensive work if none of the dependencies have changed since the last run.
+  For example, you might use this to set a bunch of properties in a widget if any of the inputs change.
+</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="useState"><code style="text-decoration:none">useState</code><a aria-hidden="true" class="hash-link" href="#useState" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#925FB9;color:#925FB9">hooks</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L212"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">useState</code><code>(</code><div class="inset_2aGl"><div><code>initialValue<!-- -->: </code><code class="blue_1B1Q">T</code><span class="inlineDescription_30X9">-- <span>
+<p>The value this hook returns if the set callback has never been called</p>
+</span></span></div></div><code>) → </code><code>(</code><div class="inset_2aGl"><div><code class="blue_1B1Q">T</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>The previously set value, or the initial value if none has been set</p>
+</span></span></div><div><code class="green_K7bQ">(</code><code>newValue<!-- -->: </code><code class="blue_1B1Q">T</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>A function which when called stores the value in this hook for the next run</p>
+</span></span></div></div><code>)</code></div><div>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> checked<span class="token punctuation">,</span> setChecked <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span>
+
+<span class="token function">useInstance</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">local</span> TextButton <span class="token operator">=</span> Instance<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"TextButton"</span><span class="token punctuation">)</span>
+
+	TextButton<span class="token punctuation">.</span>Activated<span class="token punctuation">:</span><span class="token function">Connect</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token function">setChecked</span><span class="token punctuation">(</span><span class="token keyword">not</span> checked<span class="token punctuation">)</span>
+	<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> TextButton
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+TextButton<span class="token punctuation">.</span>Text <span class="token operator">=</span> <span class="token keyword">if</span> checked <span class="token keyword">then</span> <span class="token string">"X"</span> <span class="token keyword">else</span> <span class="token string">""</span>
+</code></pre>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="useInstance"><code style="text-decoration:none">useInstance</code><a aria-hidden="true" class="hash-link" href="#useInstance" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#925FB9;color:#925FB9">hooks</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L252"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">useInstance</code><code>(</code><div class="inset_2aGl"><div><code>creator<!-- -->: </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><div class="inset_2aGl"><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="green_K7bQ">,</code></div><div class="inset_2aGl"><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance?<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code></div><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>A callback which creates the widget and returns it</p>
+</span></span></div></div><code>) → </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><span class="inlineDescription_30X9">-- <span>
+<p>Returns the instance returned by <code>creator</code></p>
+</span></span></div><div>
+<p>
+  <code>useInstance</code> takes a callback which should be used to create the initial UI for the widget.
+  The callback is only ever invoked on the first time this widget runs and never again.
+  The callback should return the instance it created.
+  The callback can optionally return a second value, which is the instance where children of this widget should be
+  placed. Otherwise, children are placed in the first instance returned.
+</p>
+<p><code>useInstance</code> returns the instance returned by the <code>creator</code> callback on the initial call and all further calls.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="start"><code style="text-decoration:none">start</code><a aria-hidden="true" class="hash-link" href="#start" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L352"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">start</code><code>(</code><div class="inset_2aGl"><div><code>rootNode<!-- -->: </code><code class="blue_1B1Q">Node</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>A node created by <code>Plasma.new</code>.</p>
+</span></span></div><div><code>callback<!-- -->: </code><code class="green_K7bQ">(</code><code>...<!-- -->: </code><code class="blue_1B1Q">T</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code>,</code></div><div><code>...<!-- -->: </code><code class="blue_1B1Q">T</code><span class="inlineDescription_30X9">-- <span>
+<p>Additional parameters to <code>callback</code></p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>
+  Begins a new frame for this Plasma instance. The <code>callback</code> is invoked immediately.
+  Code run in the <code>callback</code> function that uses plasma APIs will be associated with this Plasma node.
+  The <code>callback</code> function is <strong>not allowed to yield</strong>.
+</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="scope"><code style="text-decoration:none">scope</code><a aria-hidden="true" class="hash-link" href="#scope" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L415"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">scope</code><code>(</code><div class="inset_2aGl"><div><code>callback<!-- -->: </code><code class="green_K7bQ">(</code><code>...<!-- -->: </code><code class="blue_1B1Q">T</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code>,</code></div><div><code>...<!-- -->: </code><code class="blue_1B1Q">T</code><span class="inlineDescription_30X9">-- <span>
+<p>Additional parameters to <code>callback</code></p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>
+  Begins a new scope. This function may only be called within a <code>Plasma.start</code> callback.
+  The <code>callback</code> is invoked immediately.
+</p>
+<p>Beginning a new scope associates all further calls to Plasma APIs with a nested scope inside this one.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="widget"><code style="text-decoration:none">widget</code><a aria-hidden="true" class="hash-link" href="#widget" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Runtime.lua#L427"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">widget</code><code>(</code><div class="inset_2aGl"><div><code>callback<!-- -->: </code><code class="green_K7bQ">(</code><code>...<!-- -->: </code><code class="blue_1B1Q">T</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>The widget function</p>
+</span></span></div></div><code>) → </code><code class="green_K7bQ">(</code><code>...<!-- -->: </code><code class="blue_1B1Q">T</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>A function which can be called to create the widget</p>
+</span></span></div><div>
+<p>
+  This function takes a widget funtion and returns a function that automatically starts a new scope when the function
+  is called.
+</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="useStyle"><code style="text-decoration:none">useStyle</code><a aria-hidden="true" class="hash-link" href="#useStyle" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">style</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Style.lua#L23"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">useStyle</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>
+  Returns the current style information, with styles that are set more recently in the tree overriding styles that
+  were set further up. In this way, styles cascade downwards, similar to CSS.
+</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="setStyle"><code style="text-decoration:none">setStyle</code><a aria-hidden="true" class="hash-link" href="#setStyle" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">style</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/Style.lua#L35"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">setStyle</code><code>(</code><div class="inset_2aGl"><div><code>styleFragment<!-- -->: </code><code class="op_EBMF">{</code><span><code>[</code><code class="blue_1B1Q">string</code><code>]</code></span><code>: </code><code class="blue_1B1Q">any</code><code class="op_EBMF">}</code><span class="inlineDescription_30X9">-- <span>
+<p>A dictionary of style information</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Defines style for any subsequent calls in this scope. Merges with any existing styles.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="arrow"><code style="text-decoration:none">arrow</code><a aria-hidden="true" class="hash-link" href="#arrow" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/arrow.lua#L21"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">arrow</code><code>(</code><div class="inset_2aGl"><div><code>from<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Vector3" target="_blank" rel="noopener noreferrer">Vector3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_EBMF"> | </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/CFrame" target="_blank" rel="noopener noreferrer">CFrame<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_EBMF"> | </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/BasePart" target="_blank" rel="noopener noreferrer">BasePart<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>to<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Vector3" target="_blank" rel="noopener noreferrer">Vector3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_EBMF"> | </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/BasePart" target="_blank" rel="noopener noreferrer">BasePart<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_EBMF"> | </code><code class="blue_1B1Q">nil</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<ul>
+  <li><code>arrow(from: Vector3, to: Vector3)</code> -> Creates an arrow between <code>from</code> and <code>to</code></li>
+  <li><code>arrow(point: Vector3)</code> -> Creates an arrow pointing at <code>point</code></li>
+  <li><code>arrow(cframe: CFrame)</code> -> Creates an arrow with its point at the CFrame position facing the CFrame LookVector</li>
+  <li><code>arrow(part: BasePart)</code> -> Arrow represents the Part's CFrame</li>
+  <li><code>arrow(fromPart: BasePart, toPart: BasePart)</code> -> Arrow between the two parts</li>
+</ul>
+<p>
+  <img src="https://i.eryn.io/2150/arrows.png" alt="Arrows">
+</p>
+<pre class="language-lua"><code class="language-lua">Plasma<span class="token punctuation">.</span><span class="token function">arrow</span><span class="token punctuation">(</span>Vector3<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+Plasma<span class="token punctuation">.</span><span class="token function">arrow</span><span class="token punctuation">(</span>Vector3<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Vector3<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="blur"><code style="text-decoration:none">blur</code><a aria-hidden="true" class="hash-link" href="#blur" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/blur.lua#L9"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">blur</code><code>(</code><div class="inset_2aGl"><div><code>size<!-- -->: </code><code class="blue_1B1Q">number</code><span class="inlineDescription_30X9">-- <span>
+<p>The size of the blur</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>A blur effect in the world. Created in Lighting.</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="button"><code style="text-decoration:none">button</code><a aria-hidden="true" class="hash-link" href="#button" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/button.lua#L24"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">button</code><code>(</code><div class="inset_2aGl"><div><code>label<!-- -->: </code><code class="blue_1B1Q">string</code><span class="inlineDescription_30X9">-- <span>
+<p>The label for the checkbox</p>
+</span></span></div></div><code>) → </code><code class="blue_1B1Q">ButtonWidgetHandle</code></div><div>
+<p>A text button.</p>
+<p>Returns a widget handle, which has the field:</p>
+<ul>
+  <li><code>clicked</code>, a function you can call to check if the checkbox was clicked this frame</li>
+</ul>
+<p>
+  <img src="https://i.eryn.io/2150/RobloxStudioBeta-iwRM0RMx.png" alt="A button">
+</p>
+<pre class="language-lua"><code class="language-lua">Plasma<span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token string">"Button"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> Plasma<span class="token punctuation">.</span><span class="token function">button</span><span class="token punctuation">(</span><span class="token string">"button text"</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token function">clicked</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">then</span>
+		<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"clicked!"</span><span class="token punctuation">)</span>
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="checkbox"><code style="text-decoration:none">checkbox</code><a aria-hidden="true" class="hash-link" href="#checkbox" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/checkbox.lua#L38"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">checkbox</code><code>(</code><div class="inset_2aGl"><div><code>label<!-- -->: </code><code class="blue_1B1Q">string</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>The label for the checkbox</p>
+</span></span></div><div><code>options<!-- -->: </code><code class="op_EBMF">{</code><code>disabled<!-- -->: </code><code class="blue_1B1Q">boolean,</code><code>checked<!-- -->: </code><code class="blue_1B1Q">boolean</code><code class="op_EBMF">}</code></div></div><code>) → </code><code class="blue_1B1Q">CheckboxWidgetHandle</code></div><div>
+<p>A checkbox. A checkbox may either be controlled or uncontrolled.</p>
+<p>
+  By passing the <code>checked</code> field in <code>options</code>, you make the checkbox controlled. Controlling the checkbox means that
+  the checked state is controlled by your code. Otherwise, the controlled state is controlled by the widget itself.
+</p>
+<p>Returns a widget handle, which has the fields:</p>
+<ul>
+  <li><code>checked</code>, a function you can call to check if the checkbox is checked</li>
+  <li><code>clicked</code>, a function you can call to check if the checkbox was clicked this frame</li>
+</ul>
+<p>
+  <img src="https://i.eryn.io/2150/9Yg31gc8.png" alt="Checkboxes">
+</p>
+<pre class="language-lua"><code class="language-lua">Plasma<span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token string">"Checkboxes"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> Plasma<span class="token punctuation">.</span><span class="token function">checkbox</span><span class="token punctuation">(</span><span class="token string">"Controlled checkbox"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+		checked <span class="token operator">=</span> checked<span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token function">clicked</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">then</span>
+		checked <span class="token operator">=</span> <span class="token keyword">not</span> checked
+	<span class="token keyword">end</span>
+
+	Plasma<span class="token punctuation">.</span><span class="token function">checkbox</span><span class="token punctuation">(</span><span class="token string">"Disabled checkbox"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+		checked <span class="token operator">=</span> checked<span class="token punctuation">,</span>
+		disabled <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+	Plasma<span class="token punctuation">.</span><span class="token function">checkbox</span><span class="token punctuation">(</span><span class="token string">"Uncontrolled checkbox"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="portal"><code style="text-decoration:none">portal</code><a aria-hidden="true" class="hash-link" href="#portal" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/portal.lua#L24"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">portal</code><code>(</code><div class="inset_2aGl"><div><code>targetInstance<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>Where the portal goes to</p>
+</span></span></div><div><code>children<!-- -->: </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>Children</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>
+  The portal widget creates its children inside the specified <code>targetInstance</code>. For example, you could use this
+  to create lighting effects in Lighting as a widget:
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+	<span class="token function">portal</span><span class="token punctuation">(</span>Lighting<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token function">useInstance</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token keyword">local</span> blur <span class="token operator">=</span> Instance<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"BlurEffect"</span><span class="token punctuation">)</span>
+			blur<span class="token punctuation">.</span>Size <span class="token operator">=</span> size
+			<span class="token keyword">return</span> blur
+		<span class="token keyword">end</span><span class="token punctuation">)</span>
+	<span class="token keyword">end</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code></pre>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="row"><code style="text-decoration:none">row</code><a aria-hidden="true" class="hash-link" href="#row" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/row.lua#L10"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">row</code><code>(</code><div class="inset_2aGl"><div><code>options<!-- -->: </code><code class="op_EBMF">{</code><code>padding<!-- -->: </code><code class="blue_1B1Q"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Vector2" target="_blank" rel="noopener noreferrer">Vector2<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_EBMF">}</code><code>,</code></div><div><code>children<!-- -->: </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>Children</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Lays out children horizontally</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="spinner"><code style="text-decoration:none">spinner</code><a aria-hidden="true" class="hash-link" href="#spinner" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/spinner.lua#L10"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">spinner</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>A spinner widget, indicating loading.</p>
+<p>
+  <img src="https://i.eryn.io/2150/RobloxStudioBeta-sEyci8qy.png" alt="A spinner">
+</p>
+</div><div class="divider_wJfn"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="window"><code style="text-decoration:none">window</code><a aria-hidden="true" class="hash-link" href="#window" title="Direct link to heading">​</a></h3><span class="docTag_3K0W" style="border-color:#2b8ab6;color:#2b8ab6">widgets</span><div class="repositoryDetailsContainer_1YsL"><a class="sourceButton_3Nc5" href="https://github.com/evaera/plasma/blob/main/src/widgets/window.lua#L17"><div class="sourceButtonText_B34l">&lt;/&gt;</div></a></div><div class="memberString_2_bn"><code>Plasma<!-- -->.</code><code class="green_K7bQ">window</code><code>(</code><div class="inset_2aGl"><div><code>title<!-- -->: </code><code class="blue_1B1Q">string</code><code>,</code><span class="inlineDescription_30X9">-- <span>
+<p>The title of the window</p>
+</span></span></div><div><code>children<!-- -->: </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><code class="green_K7bQ"> → </code><code class="green_K7bQ">(</code><code class="green_K7bQ">)</code><span class="inlineDescription_30X9">-- <span>
+<p>Children</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>A window widget. Contains children.</p>
+<p>In the future:</p>
+<ul>
+  <li>Closable</li>
+  <li>Draggable</li>
+  <li>Resizable</li>
+</ul>
+<p>
+  <img src="https://i.eryn.io/2150/TVkkOnxj.png" alt="Window with checkboxes">
+</p>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+    &quot;functions&quot;: [
+        {
+            &quot;name&quot;: &quot;automaticSize&quot;,
+            &quot;desc&quot;: &quot;Applies padding-aware automatic size to the given GUI instance. This function sets up events to listen to further changes, so\nshould only be called once per object.\n\nAlso supports ScrollingFrames by correctly clamping actual and canvas sizes.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;container&quot;,
+                    &quot;desc&quot;: &quot;The instance to apply automatic sizing to.&quot;,
+                    &quot;lua_type&quot;: &quot;GuiObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;options&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{ axis: Enum.AutomaticSize, maxSize: Vector2} | nil&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;utilities&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 66,
+                &quot;path&quot;: &quot;src/automaticSize.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;create&quot;,
+            &quot;desc&quot;: &quot;A function that creates an Instance tree.\n\nCreateProps is a table:\n- String keys are interpreted as properties to set\n- Numerical keys are interpreted as children\n- Function values are interpreted as event handlers\n\n```lua\ncreate(\&quot;Frame\&quot;, {\n\tBackgroundTransparency = 1,\n\tName = \&quot;Checkbox\&quot;,\n\n\tcreate(\&quot;TextButton\&quot;, {\n\t\tBackgroundColor3 = Color3.fromRGB(54, 54, 54),\n\t\tSize = UDim2.new(0, 30, 0, 30),\n\n\t\tcreate(\&quot;UICorner\&quot;, {\n\t\t\tCornerRadius = UDim.new(0, 8),\n\t\t}),\n\n\t\tActivated = function()\n\t\t\tsetClicked(true)\n\t\tend,\n\t}),\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;className&quot;,
+                    &quot;desc&quot;: &quot;The class name of the Instance to create&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;props&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;CreateProps&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;utilities&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 34,
+                &quot;path&quot;: &quot;src/create.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;new&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;rootInstance&quot;,
+                    &quot;desc&quot;: &quot;The root instance of which to mount all children. Likely a ScreenGui.&quot;,
+                    &quot;lua_type&quot;: &quot;Instance&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;An opaque object which holds persistent state about your UI.&quot;,
+                    &quot;lua_type&quot;: &quot;Node&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 84,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;createContext&quot;,
+            &quot;desc&quot;: &quot;Creates a [Context] object which is used to pass state downwards through the tree without needing to thread it\nthrough every child as props.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;name&quot;,
+                    &quot;desc&quot;: &quot;The human-readable name of the context. This is only for debug purposes.&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;An opqaue Context object which holds persistent state.&quot;,
+                    &quot;lua_type&quot;: &quot;Context&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 98,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;useContext&quot;,
+            &quot;desc&quot;: &quot;Returns the value of this context provided by the most recent ancestor that used `provideContext` with this context.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;context&quot;,
+                    &quot;desc&quot;: &quot;A context object previously created with `createContext`&quot;,
+                    &quot;lua_type&quot;: &quot;Context&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;hooks&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 115,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;provideContext&quot;,
+            &quot;desc&quot;: &quot;Provides a value for this context for any subsequent uses of `useContext` in this scope.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;context&quot;,
+                    &quot;desc&quot;: &quot;A context object previously created with `createContext`&quot;,
+                    &quot;lua_type&quot;: &quot;Context&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;value&quot;,
+                    &quot;desc&quot;: &quot;Any value you want to provide for this context&quot;,
+                    &quot;lua_type&quot;: &quot;T&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 134,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;useEffect&quot;,
+            &quot;desc&quot;: &quot;`useEffect` takes a callback as a parameter which is then only invoked if passed dependencies are different from the\nlast time this function was called. The callback is always invoked the first time this code path is reached.\n\nIf no dependencies are passed, the callback only runs once.\n\nThis function can be used to skip expensive work if none of the dependencies have changed since the last run.\nFor example, you might use this to set a bunch of properties in a widget if any of the inputs change.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;callback&quot;,
+                    &quot;desc&quot;: &quot;A callback function that optionally returns a cleanup function&quot;,
+                    &quot;lua_type&quot;: &quot;() -&gt; () | () -&gt; () -&gt; ()&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;...&quot;,
+                    &quot;desc&quot;: &quot;Dependencies&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;hooks&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 153,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;useState&quot;,
+            &quot;desc&quot;: &quot;```lua\nlocal checked, setChecked = useState(false)\n\nuseInstance(function()\n\tlocal TextButton = Instance.new(\&quot;TextButton\&quot;)\n\n\tTextButton.Activated:Connect(function()\n\t\tsetChecked(not checked)\n\tend)\n\n\treturn TextButton\nend)\n\nTextButton.Text = if checked then \&quot;X\&quot; else \&quot;\&quot;\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;initialValue&quot;,
+                    &quot;desc&quot;: &quot;The value this hook returns if the set callback has never been called&quot;,
+                    &quot;lua_type&quot;: &quot;T&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;The previously set value, or the initial value if none has been set&quot;,
+                    &quot;lua_type&quot;: &quot;T&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;A function which when called stores the value in this hook for the next run&quot;,
+                    &quot;lua_type&quot;: &quot;(newValue: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;hooks&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 212,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;useInstance&quot;,
+            &quot;desc&quot;: &quot;`useInstance` takes a callback which should be used to create the initial UI for the widget.\nThe callback is only ever invoked on the first time this widget runs and never again.\nThe callback should return the instance it created.\nThe callback can optionally return a second value, which is the instance where children of this widget should be\nplaced. Otherwise, children are placed in the first instance returned.\n\n`useInstance` returns the instance returned by the `creator` callback on the initial call and all further calls.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;creator&quot;,
+                    &quot;desc&quot;: &quot;A callback which creates the widget and returns it&quot;,
+                    &quot;lua_type&quot;: &quot;() -&gt; (Instance, Instance?)&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns the instance returned by `creator`&quot;,
+                    &quot;lua_type&quot;: &quot;Instance&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;hooks&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 252,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;start&quot;,
+            &quot;desc&quot;: &quot;Begins a new frame for this Plasma instance. The `callback` is invoked immediately.\nCode run in the `callback` function that uses plasma APIs will be associated with this Plasma node.\nThe `callback` function is **not allowed to yield**.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;rootNode&quot;,
+                    &quot;desc&quot;: &quot;A node created by `Plasma.new`.&quot;,
+                    &quot;lua_type&quot;: &quot;Node&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;callback&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(...: T) -&gt; ()&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;...&quot;,
+                    &quot;desc&quot;: &quot;Additional parameters to `callback`&quot;,
+                    &quot;lua_type&quot;: &quot;T&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 352,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;scope&quot;,
+            &quot;desc&quot;: &quot;Begins a new scope. This function may only be called within a `Plasma.start` callback.\nThe `callback` is invoked immediately.\n\nBeginning a new scope associates all further calls to Plasma APIs with a nested scope inside this one.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;callback&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(...: T) -&gt; ()&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;...&quot;,
+                    &quot;desc&quot;: &quot;Additional parameters to `callback`&quot;,
+                    &quot;lua_type&quot;: &quot;T&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 415,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;widget&quot;,
+            &quot;desc&quot;: &quot;This function takes a widget funtion and returns a function that automatically starts a new scope when the function\nis called.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;callback&quot;,
+                    &quot;desc&quot;: &quot;The widget function&quot;,
+                    &quot;lua_type&quot;: &quot;(...: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;A function which can be called to create the widget&quot;,
+                    &quot;lua_type&quot;: &quot;(...: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 427,
+                &quot;path&quot;: &quot;src/Runtime.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;useStyle&quot;,
+            &quot;desc&quot;: &quot;Returns the current style information, with styles that are set more recently in the tree overriding styles that\nwere set further up. In this way, styles cascade downwards, similar to CSS.&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;style&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 23,
+                &quot;path&quot;: &quot;src/Style.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;setStyle&quot;,
+            &quot;desc&quot;: &quot;Defines style for any subsequent calls in this scope. Merges with any existing styles.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;styleFragment&quot;,
+                    &quot;desc&quot;: &quot;A dictionary of style information&quot;,
+                    &quot;lua_type&quot;: &quot;{[string]: any}&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;style&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 35,
+                &quot;path&quot;: &quot;src/Style.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;arrow&quot;,
+            &quot;desc&quot;: &quot;- `arrow(from: Vector3, to: Vector3)` -&gt; Creates an arrow between `from` and `to`\n- `arrow(point: Vector3)` -&gt; Creates an arrow pointing at `point`\n- `arrow(cframe: CFrame)` -&gt; Creates an arrow with its point at the CFrame position facing the CFrame LookVector\n- `arrow(part: BasePart)` -&gt; Arrow represents the Part&#x27;s CFrame\n- `arrow(fromPart: BasePart, toPart: BasePart)` -&gt; Arrow between the two parts\n\n![Arrows](https://i.eryn.io/2150/arrows.png)\n\n```lua\nPlasma.arrow(Vector3.new(0, 0, 0))\nPlasma.arrow(Vector3.new(5, 5, 5), Vector3.new(10, 10, 10))\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;from&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Vector3 | CFrame | BasePart&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;to&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Vector3 | BasePart | nil&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 21,
+                &quot;path&quot;: &quot;src/widgets/arrow.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;blur&quot;,
+            &quot;desc&quot;: &quot;A blur effect in the world. Created in Lighting.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;size&quot;,
+                    &quot;desc&quot;: &quot;The size of the blur&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 9,
+                &quot;path&quot;: &quot;src/widgets/blur.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;button&quot;,
+            &quot;desc&quot;: &quot;A text button.\n\nReturns a widget handle, which has the field:\n\n- `clicked`, a function you can call to check if the checkbox was clicked this frame\n\n![A button](https://i.eryn.io/2150/RobloxStudioBeta-iwRM0RMx.png)\n\n```lua\nPlasma.window(\&quot;Button\&quot;, function()\n\tif Plasma.button(\&quot;button text\&quot;):clicked() then\n\t\tprint(\&quot;clicked!\&quot;)\n\tend\nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;label&quot;,
+                    &quot;desc&quot;: &quot;The label for the checkbox&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;ButtonWidgetHandle&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 24,
+                &quot;path&quot;: &quot;src/widgets/button.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;checkbox&quot;,
+            &quot;desc&quot;: &quot;A checkbox. A checkbox may either be controlled or uncontrolled.\n\nBy passing the `checked` field in `options`, you make the checkbox controlled. Controlling the checkbox means that\nthe checked state is controlled by your code. Otherwise, the controlled state is controlled by the widget itself.\n\nReturns a widget handle, which has the fields:\n\n- `checked`, a function you can call to check if the checkbox is checked\n- `clicked`, a function you can call to check if the checkbox was clicked this frame\n\n![Checkboxes](https://i.eryn.io/2150/9Yg31gc8.png)\n\n```lua\nPlasma.window(\&quot;Checkboxes\&quot;, function()\n\tif Plasma.checkbox(\&quot;Controlled checkbox\&quot;, {\n\t\tchecked = checked,\n\t}):clicked() then\n\t\tchecked = not checked\n\tend\n\n\tPlasma.checkbox(\&quot;Disabled checkbox\&quot;, {\n\t\tchecked = checked,\n\t\tdisabled = true,\n\t})\n\n\tPlasma.checkbox(\&quot;Uncontrolled checkbox\&quot;)\nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;label&quot;,
+                    &quot;desc&quot;: &quot;The label for the checkbox&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;options&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{disabled: boolean, checked: boolean}&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;CheckboxWidgetHandle&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 38,
+                &quot;path&quot;: &quot;src/widgets/checkbox.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;portal&quot;,
+            &quot;desc&quot;: &quot;The portal widget creates its children inside the specified `targetInstance`. For example, you could use this\nto create lighting effects in Lighting as a widget:\n\n\n```lua\nreturn function(size)\n\tportal(Lighting, function()\n\t\tuseInstance(function()\n\t\t\tlocal blur = Instance.new(\&quot;BlurEffect\&quot;)\n\t\t\tblur.Size = size\n\t\t\treturn blur\n\t\tend)\n\tend)\nend\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;targetInstance&quot;,
+                    &quot;desc&quot;: &quot;Where the portal goes to&quot;,
+                    &quot;lua_type&quot;: &quot;Instance&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;children&quot;,
+                    &quot;desc&quot;: &quot;Children&quot;,
+                    &quot;lua_type&quot;: &quot;() -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 24,
+                &quot;path&quot;: &quot;src/widgets/portal.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;row&quot;,
+            &quot;desc&quot;: &quot;Lays out children horizontally&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;options&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{padding: Vector2}&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;children&quot;,
+                    &quot;desc&quot;: &quot;Children&quot;,
+                    &quot;lua_type&quot;: &quot;() -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 10,
+                &quot;path&quot;: &quot;src/widgets/row.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;spinner&quot;,
+            &quot;desc&quot;: &quot;A spinner widget, indicating loading.\n\n![A spinner](https://i.eryn.io/2150/RobloxStudioBeta-sEyci8qy.png)&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 10,
+                &quot;path&quot;: &quot;src/widgets/spinner.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;window&quot;,
+            &quot;desc&quot;: &quot;A window widget. Contains children.\n\nIn the future:\n- Closable\n- Draggable\n- Resizable\n\n![Window with checkboxes](https://i.eryn.io/2150/TVkkOnxj.png)&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;title&quot;,
+                    &quot;desc&quot;: &quot;The title of the window&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;children&quot;,
+                    &quot;desc&quot;: &quot;Children&quot;,
+                    &quot;lua_type&quot;: &quot;() -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;tags&quot;: [
+                &quot;widgets&quot;
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 17,
+                &quot;path&quot;: &quot;src/widgets/window.lua&quot;
+            }
+        }
+    ],
+    &quot;properties&quot;: [],
+    &quot;types&quot;: [],
+    &quot;name&quot;: &quot;Plasma&quot;,
+    &quot;desc&quot;: &quot;&quot;,
+    &quot;source&quot;: {
+        &quot;line&quot;: 2,
+        &quot;path&quot;: &quot;src/init.lua&quot;
+    }
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_35-E thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#hooks" class="table-of-contents__link toc-highlight">Hooks</a><ul><li><a href="#useContext" class="table-of-contents__link toc-highlight">.useContext</a></li><li><a href="#useEffect" class="table-of-contents__link toc-highlight">.useEffect</a></li><li><a href="#useInstance" class="table-of-contents__link toc-highlight">.useInstance</a></li><li><a href="#useState" class="table-of-contents__link toc-highlight">.useState</a></li></ul></li><li><a href="#utilities" class="table-of-contents__link toc-highlight">Utilities</a><ul><li><a href="#automaticSize" class="table-of-contents__link toc-highlight">.automaticSize</a></li><li><a href="#create" class="table-of-contents__link toc-highlight">.create</a></li></ul></li><li><a href="#style" class="table-of-contents__link toc-highlight">Style</a><ul><li><a href="#setStyle" class="table-of-contents__link toc-highlight">.setStyle</a></li><li><a href="#useStyle" class="table-of-contents__link toc-highlight">.useStyle</a></li></ul></li><li><a href="#widgets" class="table-of-contents__link toc-highlight">Widgets</a><ul><li><a href="#arrow" class="table-of-contents__link toc-highlight">.arrow</a></li><li><a href="#blur" class="table-of-contents__link toc-highlight">.blur</a></li><li><a href="#button" class="table-of-contents__link toc-highlight">.button</a></li><li><a href="#checkbox" class="table-of-contents__link toc-highlight">.checkbox</a></li><li><a href="#portal" class="table-of-contents__link toc-highlight">.portal</a></li><li><a href="#row" class="table-of-contents__link toc-highlight">.row</a></li><li><a href="#spinner" class="table-of-contents__link toc-highlight">.spinner</a></li><li><a href="#window" class="table-of-contents__link toc-highlight">.window</a></li></ul></li><li><a href="#createContext" class="table-of-contents__link toc-highlight">.createContext</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#provideContext" class="table-of-contents__link toc-highlight">.provideContext</a></li><li><a href="#scope" class="table-of-contents__link toc-highlight">.scope</a></li><li><a href="#start" class="table-of-contents__link toc-highlight">.start</a></li><li><a href="#widget" class="table-of-contents__link toc-highlight">.widget</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2021 evaera. Built with Moonwave and Docusaurus.</div></div></div></footer></div>
+<script src="/plasma/assets/js/runtime~main.f60e7e20.js"></script>
+<script src="/plasma/assets/js/main.f8e1d56c.js"></script>
+</body>
+</html>
