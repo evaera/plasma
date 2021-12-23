@@ -316,10 +316,10 @@ local function scope(level, fn, ...)
 			recentErrors = {}
 		end
 
-		if not recentErrors[error] then
-			task.spawn(error, widgetHandle)
+		if not recentErrors[widgetHandle] then
+			task.spawn(error, tostring(widgetHandle))
 			warn("Plasma: The above error will be suppressed for the next 10 seconds")
-			recentErrors[error] = true
+			recentErrors[widgetHandle] = true
 		end
 
 		local errorWidget = require(script.Parent.widgets.error)
