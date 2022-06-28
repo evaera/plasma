@@ -6,6 +6,7 @@ local Style = require(script.Style)
 return {
 	new = Runtime.new,
 	start = Runtime.start,
+	continue = Runtime.continue,
 	scope = Runtime.scope,
 	widget = Runtime.widget,
 	useState = Runtime.useState,

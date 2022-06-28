@@ -361,6 +361,7 @@ end
 	@param rootNode Node -- A node created by `Plasma.new`.
 	@param fn (...: T) -> ()
 	@param ... T -- Additional parameters to `callback`
+	@return ContinueHandle -- An object that can be passed to Plasma.continue
 
 	Begins a new frame for this Plasma instance. The `callback` is invoked immediately.
 	Code run in the `callback` function that uses plasma APIs will be associated with this Plasma node.
@@ -407,7 +408,7 @@ function Runtime.start(rootNode: Node, fn, ...)
 
 	stack[1] = newStackFrame(rootNode)
 	scope(2, "root", handler, ...)
-	table.remove(stack)
+	local continueHandle = table.remove(stack)
 
 	for childKey, childNode in pairs(rootNode.children) do
 		if childNode.generation ~= rootNode.generation then
@@ -417,6 +418,32 @@ function Runtime.start(rootNode: Node, fn, ...)
 	end
 
 	debug.profileend()
+
+	return continueHandle
+end
+
+--[=[
+	Continue the Plasma frame with a new handler function. Calling this will not trigger any cleanup that typically
+	happens every frame.
+
+	This is intended to be used to continue creating UI within the same frame that you started on. You should call
+	[Plasma.start] once per frame, then `Plasma.continue` any number of times after that, within the same frame.
+
+	@within Plasma
+	@param continueHandle ContinueHandle -- An object returned by Plasma.start
+	@param fn (...: T) -> ()
+	@param ... T -- Additional parameters to `callback`
+]=]
+function Runtime.continue(frame, fn, ...)
+	if #stack > 0 then
+		error("Runtime.continue cannot be called while Runtime.start is already running", 2)
+	end
+
+	stack[1] = frame
+
+	scope(2, "root", fn, ...)
+
+	table.remove(stack)
 end
 
 --[=[
@@ -438,7 +465,7 @@ end
 	@param fn (...: T) -> () -- The widget function
 	@return (...: T) -> () -- A function which can be called to create the widget
 
-	This function takes a widget funtion and returns a function that automatically starts a new scope when the function
+	This function takes a widget function and returns a function that automatically starts a new scope when the function
 	is called.
 ]=]
 function Runtime.widget(fn)
