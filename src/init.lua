@@ -27,4 +27,8 @@ return {
 	spinner = require(script.widgets.spinner),
 	checkbox = require(script.widgets.checkbox),
 	arrow = require(script.widgets.arrow),
+	heading = require(script.widgets.heading),
+	label = require(script.widgets.label),
+	slider = require(script.widgets.slider),
+	space = require(script.widgets.space),
 }
