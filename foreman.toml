@@ -1,2 +1,0 @@
-[tools]
-wally = { source = "upliftgames/wally", version = "0.3.1" }
