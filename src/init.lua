@@ -11,6 +11,7 @@ return {
 	useState = Runtime.useState,
 	useInstance = Runtime.useInstance,
 	useEffect = Runtime.useEffect,
+	useKey = Runtime.useKey,
 
 	useStyle = Style.get,
 	setStyle = Style.set,
