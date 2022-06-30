@@ -364,11 +364,12 @@ end
 	@param rootNode Node -- A node created by `Plasma.new`.
 	@param fn (...: T) -> ()
 	@param ... T -- Additional parameters to `callback`
-	@return ContinueHandle -- An object that can be passed to Plasma.continue
 
 	Begins a new frame for this Plasma instance. The `callback` is invoked immediately.
 	Code run in the `callback` function that uses plasma APIs will be associated with this Plasma node.
 	The `callback` function is **not allowed to yield**.
+
+	If this function is used, `Plasma.beginFrame`, `Plasma.continueFrame`, and `Plasma.finishFrame` should not be used.
 ]=]
 function Runtime.start(rootNode: Node, fn, ...)
 	if yieldedThread then
@@ -411,7 +412,7 @@ function Runtime.start(rootNode: Node, fn, ...)
 
 	stack[1] = newStackFrame(rootNode)
 	scope(2, "root", handler, ...)
-	local continueHandle = table.remove(stack)
+	table.remove(stack)
 
 	for childKey, childNode in pairs(rootNode.children) do
 		if childNode.generation ~= rootNode.generation then
@@ -421,8 +422,56 @@ function Runtime.start(rootNode: Node, fn, ...)
 	end
 
 	debug.profileend()
+end
+
+--[=[
+	@within Plasma
+	@param rootNode Node -- A node created by `Plasma.new`.
+	@param fn (...: T) -> ()
+	@param ... T -- Additional parameters to `callback`
+	@return ContinueHandle -- A handle to pass to `continueFrame`
+
+	Begins a *continuable* Plasma frame. Same semantics as [Plasma.start].
+
+	For a frame:
+	- Call `beginFrame` once.
+	- Call `continueFrame` any number of times.
+	- Call `finishFrame` when the frame is complete.
+
+	If this function is used, `Plasma.start` should not be used.
+]=]
+function Runtime.beginFrame(rootNode: Node, fn, ...)
+	if #stack > 0 then
+		error("Runtime.start cannot be called while Runtime.start is already running", 2)
+	end
+
+	debug.profilebegin("Plasma")
+
+	if rootNode.generation == 0 then
+		rootNode.generation = 1
+	else
+		rootNode.generation = 0
+	end
+
+	stack[1] = newStackFrame(rootNode)
+	scope(2, "root", fn, ...)
+	local continueHandle = table.remove(stack)
+
+	debug.profileend()
 
 	return continueHandle
+end
+
+--[=[
+	Finishes a continuable Plasma frame, cleaning up any objects that have been removed since the last frame.
+]=]
+function Runtime.finishFrame(rootNode: Node)
+	for childKey, childNode in pairs(rootNode.children) do
+		if childNode.generation ~= rootNode.generation then
+			destroyNode(childNode)
+			rootNode.children[childKey] = nil
+		end
+	end
 end
 
 --[=[
@@ -430,14 +479,15 @@ end
 	happens every frame.
 
 	This is intended to be used to continue creating UI within the same frame that you started on. You should call
-	[Plasma.start] once per frame, then `Plasma.continue` any number of times after that, within the same frame.
+	[Plasma.beginFrame] once per frame, then `Plasma.continueFrame` any number of times after that, finally calling
+	[Plasma.finishFrame].
 
 	@within Plasma
 	@param continueHandle ContinueHandle -- An object returned by Plasma.start
 	@param fn (...: T) -> ()
 	@param ... T -- Additional parameters to `callback`
 ]=]
-function Runtime.continue(frame, fn, ...)
+function Runtime.continueFrame(frame, fn, ...)
 	if #stack > 0 then
 		error("Runtime.continue cannot be called while Runtime.start is already running", 2)
 	end
