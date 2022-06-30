@@ -464,6 +464,8 @@ end
 
 --[=[
 	Finishes a continuable Plasma frame, cleaning up any objects that have been removed since the last frame.
+	@within Plasma
+	@param rootNode Node -- A node created by `Plasma.new`.
 ]=]
 function Runtime.finishFrame(rootNode: Node)
 	for childKey, childNode in pairs(rootNode.children) do
@@ -487,12 +489,12 @@ end
 	@param fn (...: T) -> ()
 	@param ... T -- Additional parameters to `callback`
 ]=]
-function Runtime.continueFrame(frame, fn, ...)
+function Runtime.continueFrame(continueHandle, fn, ...)
 	if #stack > 0 then
 		error("Runtime.continue cannot be called while Runtime.start is already running", 2)
 	end
 
-	stack[1] = frame
+	stack[1] = continueHandle
 
 	scope(2, "root", fn, ...)
 
