@@ -1,3 +1,5 @@
+type EventCallback = (Instance, string, (...any) -> ()) -> ()
+
 type Node = {
 	instance: Instance?,
 	containerInstance: Instance?,
@@ -11,6 +13,7 @@ type Node = {
 	states: { [TopoKey]: any },
 	children: { [TopoKey]: Node },
 	generation: number,
+	eventCallback: EventCallback?,
 }
 
 type TopoKey = string
@@ -475,6 +478,20 @@ function Runtime.widget(fn)
 	return function(...)
 		return scope(2, scopeKey, fn, ...)
 	end
+end
+
+function Runtime.setEventCallback(callback: EventCallback)
+	stack[1].node.eventCallback = callback
+end
+
+function Runtime.useEventCallback(): EventCallback?
+	local frame = stack[1]
+
+	if not frame then
+		return nil
+	end
+
+	return frame.node.eventCallback
 end
 
 return Runtime

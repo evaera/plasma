@@ -1,3 +1,5 @@
+local Runtime = require(script.Parent.Runtime)
+
 --[=[
 	@within Plasma
 	@function create
@@ -35,11 +37,17 @@
 	```
 ]=]
 local function create(className, props)
+	local eventCallback = Runtime.useEventCallback()
+
 	local instance = Instance.new(className)
 
 	for key, value in pairs(props) do
 		if type(value) == "function" then
-			instance[key]:Connect(value)
+			if eventCallback then
+				eventCallback(instance, key, value)
+			else
+				instance[key]:Connect(value)
+			end
 		elseif type(key) == "number" then
 			value.Parent = instance
 		else

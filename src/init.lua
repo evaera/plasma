@@ -13,6 +13,7 @@ return {
 	useInstance = Runtime.useInstance,
 	useEffect = Runtime.useEffect,
 	useKey = Runtime.useKey,
+	setEventCallback = Runtime.setEventCallback,
 
 	useStyle = Style.get,
 	setStyle = Style.set,
