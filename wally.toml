@@ -1,8 +1,9 @@
 [package]
 name = "evaera/plasma"
-version = "0.2.0"
+version = "0.3.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
+exclude = ["example", "docs", "Packages", ".moonwave", "build", "pages", "tests", "stories", "plasma.rbxm", "roblox.toml"]
 
 [dependencies]
 TestEZ = "roblox/testez@0.4.1"
