@@ -1,3 +1,5 @@
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
 local function applyLayout(container, layout, options)
 	local axis = options.axis or Enum.AutomaticSize.XY
 	local maxSize = options.maxSize or Vector2.new(math.huge, math.huge)
@@ -97,16 +99,38 @@ local defaultOptions = {}
 	@within Plasma
 	@function automaticSize
 	@param container GuiObject -- The instance to apply automatic sizing to.
-	@param options { axis: Enum.AutomaticSize, maxSize: Vector2} | nil
+	@param options { axis: Enum.AutomaticSize, maxSize: Vector2 | UDim2} | nil
 	@tag utilities
 
 	Applies padding-aware automatic size to the given GUI instance. This function sets up events to listen to further changes, so
 	should only be called once per object.
 
 	Also supports ScrollingFrames by correctly clamping actual and canvas sizes.
+
+	:::note
+	Automatic sizing cannot be applied on the server because clients have differing screen sizes.
+
+	If this function is called from the server, it instead configures the instance to be compatible with the
+	[Plasma.hydrateAutomaticSize] function, adding the CollectionService tag and other attributes.
+
+	You must also call `hydrateAutomaticSize` once on the client for this to work.
+	:::
 ]=]
 local function automaticSize(container, options)
 	options = options or defaultOptions
+
+	if RunService:IsServer() then
+		if options.maxSize then
+			container:SetAttribute("maxSize", options.maxSize)
+		end
+		if options.axis then
+			container:SetAttribute("axis", options.axis.Name)
+		end
+
+		CollectionService:AddTag(container, "PlasmaAutomaticSize")
+
+		return
+	end
 
 	local layout = container:FindFirstChildWhichIsA("UIGridStyleLayout")
 

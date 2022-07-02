@@ -21,6 +21,7 @@ return {
 	setStyle = Style.set,
 
 	automaticSize = require(script.automaticSize),
+	hydrateAutomaticSize = require(script.hydrateAutomaticSize),
 	create = require(script.create),
 
 	window = require(script.widgets.window),
