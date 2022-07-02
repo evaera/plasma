@@ -4,7 +4,6 @@ local function applyLayout(container, layout, options)
 
 	if typeof(maxSize) == "UDim2" then
 		if container.Parent == nil then
-			print("parent is nil")
 			maxSize = Vector2.new(0, 0)
 		else
 			local parentSize = container.Parent.AbsoluteSize
@@ -13,7 +12,6 @@ local function applyLayout(container, layout, options)
 				(parentSize.X / maxSize.X.Scale) + maxSize.X.Offset,
 				(parentSize.Y / maxSize.Y.Scale) + maxSize.Y.Offset
 			)
-			print(container.Parent:GetFullName(), maxSize)
 		end
 	end
 
