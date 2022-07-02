@@ -33,17 +33,17 @@ local function applyLayout(container, layout, options)
 	end
 
 	if container:IsA("ScrollingFrame") then
-		container.CanvasSize = UDim2.new(x, y)
+		local canvasX = x
+		local canvasY = y
 
-		-- TODO: This isn't completely correct
-		-- Need some solution here because the vertical scrollbar appearing also makes the horizontal scrollbar
-		-- appear because the scrollbars take up space in the layout
 		if x.Offset > xClamped.Offset then
-			yClamped += UDim.new(0, container.ScrollBarThickness * 2)
+			canvasY -= UDim.new(0, container.ScrollBarThickness)
 		end
 		if y.Offset > yClamped.Offset then
-			xClamped += UDim.new(0, container.ScrollBarThickness * 2)
+			canvasX -= UDim.new(0, container.ScrollBarThickness)
 		end
+
+		container.CanvasSize = UDim2.new(canvasX, canvasY)
 	end
 
 	container.Size = UDim2.new(xClamped, yClamped)
