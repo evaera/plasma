@@ -2,6 +2,21 @@ local function applyLayout(container, layout, options)
 	local axis = options.axis or Enum.AutomaticSize.XY
 	local maxSize = options.maxSize or Vector2.new(math.huge, math.huge)
 
+	if typeof(maxSize) == "UDim2" then
+		if container.Parent == nil then
+			print("parent is nil")
+			maxSize = Vector2.new(0, 0)
+		else
+			local parentSize = container.Parent.AbsoluteSize
+
+			maxSize = Vector2.new(
+				(parentSize.X / maxSize.X.Scale) + maxSize.X.Offset,
+				(parentSize.Y / maxSize.Y.Scale) + maxSize.Y.Offset
+			)
+			print(container.Parent:GetFullName(), maxSize)
+		end
+	end
+
 	local padX = 0
 	local padY = 0
 	local padding = container:FindFirstChildOfClass("UIPadding")
@@ -49,6 +64,35 @@ local function applyLayout(container, layout, options)
 	container.Size = UDim2.new(xClamped, yClamped)
 end
 
+local function trackParentSize(instance, callback)
+	local parent = nil
+	local connection = nil
+
+	local function parentChanged(newParent)
+		if parent == newParent then
+			return
+		end
+
+		if connection ~= nil then
+			connection:Disconnect()
+			connection = nil
+		end
+
+		if newParent == nil then
+			return
+		end
+
+		connection = newParent:GetPropertyChangedSignal("AbsoluteSize"):Connect(callback)
+		parent = newParent
+	end
+
+	parentChanged(instance.Parent)
+
+	instance:GetPropertyChangedSignal("Parent"):Connect(function()
+		parentChanged(instance.Parent)
+	end)
+end
+
 local defaultOptions = {}
 
 --[=[
@@ -67,9 +111,16 @@ local function automaticSize(container, options)
 	options = options or defaultOptions
 
 	local layout = container:FindFirstChildWhichIsA("UIGridStyleLayout")
+
 	applyLayout(container, layout, options)
 
-	return layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+	if typeof(options.maxSize) == "UDim2" then
+		trackParentSize(container, function()
+			applyLayout(container, layout, options)
+		end)
+	end
+
+	layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 		applyLayout(container, layout, options)
 	end)
 end
