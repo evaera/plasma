@@ -1,3 +1,4 @@
+local CollectionService = game:GetService("CollectionService")
 local Runtime = require(script.Parent.Runtime)
 
 --[=[
@@ -14,6 +15,7 @@ local Runtime = require(script.Parent.Runtime)
 	- String keys are interpreted as properties to set
 	- Numerical keys are interpreted as children
 	- Function values are interpreted as event handlers
+	- Table keys can be used to get references to instances deep in the tree, the value becomes the key in the table
 
 	This function doesn't do anything special. It just creates an instance.
 
@@ -34,9 +36,27 @@ local Runtime = require(script.Parent.Runtime)
 				setClicked(true)
 			end,
 		}),
+	})
+	```
+
+	Getting references to instances deep in a tree:
+
+	```lua
+	local ref = {}
+
+	create("Frame", {
+		create("TextButton", {
+			[ref] = "button",
+			Text = "hi"
+		})
+	})
+
+	print(ref.button.Text) --> hi
 	```
 ]=]
 local function create(className, props)
+	props = props or {}
+
 	local eventCallback = Runtime.useEventCallback()
 
 	local instance = Instance.new(className)
@@ -50,6 +70,12 @@ local function create(className, props)
 			end
 		elseif type(key) == "number" then
 			value.Parent = instance
+		elseif type(key) == "table" then
+			key[value] = instance
+
+			if props.Name == nil then
+				instance.Name = value
+			end
 		else
 			instance[key] = value
 		end

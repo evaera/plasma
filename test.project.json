@@ -1,16 +1,9 @@
 {
   "name": "plasma",
+  "servePort": 34873,
+
   "tree": {
     "$className": "DataModel",
-    "HttpService": {
-      "$className": "HttpService",
-      "$properties": {
-        "HttpEnabled": {
-          "Type": "Bool",
-          "Value": true
-        }
-      }
-    },
     "StarterPlayer": {
       "$className": "StarterPlayer",
       "StarterPlayerScripts": {

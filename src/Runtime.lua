@@ -2,6 +2,7 @@ type EventCallback = (Instance, string, (...any) -> ()) -> ()
 
 type Node = {
 	instance: Instance?,
+	refs: { [any]: Instance }?,
 	containerInstance: Instance?,
 	effects: {
 		[TopoKey]: {
@@ -293,6 +294,35 @@ function Runtime.useInstance(creator: () -> Instance): Instance
 	end
 
 	return node.instance
+end
+
+function Runtime.useInstance2(creator: (refs: {}) -> Instance): Instance
+	local node = stack[#stack].node
+	local parentFrame = Runtime.nearestStackFrameWithInstance()
+
+	if node.instance == nil then
+		local parent = parentFrame.node.containerInstance or parentFrame.node.instance
+
+		node.refs = {}
+
+		local instance = creator(node.refs)
+
+		if instance ~= nil then
+			instance.Parent = parent
+			node.instance = instance
+		end
+
+		if node.refs.container ~= nil then
+			node.containerInstance = node.refs.container
+		end
+	end
+
+	if node.instance ~= nil and node.instance:IsA("GuiObject") then
+		parentFrame.childrenCount += 1
+		node.instance.LayoutOrder = parentFrame.childrenCount
+	end
+
+	return node.refs
 end
 
 function Runtime.nearestStackFrameWithInstance(): StackFrame?
