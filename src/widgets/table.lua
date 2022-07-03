@@ -1,3 +1,4 @@
+local RunService = game:GetService("RunService")
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)
@@ -37,7 +38,11 @@ local row = Runtime.widget(function(columns, darken)
 	end)
 
 	for _, column in columns do
-		cell(column)
+		if type(column) == "function" then
+			return Runtime.scope(column)
+		else
+			cell(column)
+		end
 	end
 end)
 
@@ -68,9 +73,40 @@ return Runtime.widget(function(items, options)
 			Position = UDim2.new(0, 0, 0, options.marginTop or 0),
 
 			create("UITableLayout", {
+				[ref] = "layout",
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 		})
+
+		ref.fix = function()
+			-- Wtf roblox
+
+			for _, child in ref.table:GetChildren() do
+				if child:IsA("GuiObject") then
+					child.Visible = false
+				end
+			end
+
+			local _ = ref.layout.AbsoluteContentSize
+
+			for _, child in ref.table:GetChildren() do
+				if child:IsA("GuiObject") then
+					child.Visible = true
+				end
+			end
+		end
+
+		local connection
+
+		connection = ref.table:GetPropertyChangedSignal("Parent"):Connect(function()
+			connection:Disconnect()
+			connection = nil
+
+			RunService.Heartbeat:Wait()
+			RunService.Heartbeat:Wait()
+
+			ref.fix()
+		end)
 
 		automaticSize(ref.table)
 
@@ -80,6 +116,10 @@ return Runtime.widget(function(items, options)
 	for i, columns in items do
 		row(columns, i % 2 == 0)
 	end
+
+	Runtime.useEffect(function()
+		refs.fix()
+	end, #items)
 
 	return refs.table
 end)
