@@ -36,4 +36,5 @@ return {
 	label = require(script.widgets.label),
 	slider = require(script.widgets.slider),
 	space = require(script.widgets.space),
+	table = require(script.widgets.table),
 }
