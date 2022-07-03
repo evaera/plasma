@@ -1,85 +1,285 @@
+local UserInputService = game:GetService("UserInputService")
+
+--[=[
+	@interface WindowOptions
+	@within Plasma
+
+	.title? string
+	.closable? boolean
+	.movable? boolean
+	.resizable? boolean
+]=]
+
 --[=[
 	@within Plasma
 	@function window
-	@param title string -- The title of the window
+	@param options string | WindowOptions -- The title of the window, or options
 	@param children () -> () -- Children
 	@tag widgets
+	@return WindowWidgetHandle
 
 	A window widget. Contains children.
 
-	In the future:
 	- Closable
 	- Draggable
 	- Resizable
+
+	Returns a widget handle, which has the field:
+
+	- `closed`, a function you can call to check if the close button was clicked.
 
 	![Window with checkboxes](https://i.eryn.io/2150/TVkkOnxj.png)
 ]=]
 
 local Runtime = require(script.Parent.Parent.Runtime)
+local createConnect = require(script.Parent.Parent.createConnect)
 local Style = require(script.Parent.Parent.Style)
 local automaticSize = require(script.Parent.Parent.automaticSize)
+local c = require(script.Parent.Parent.create)
 
-return Runtime.widget(function(title, fn)
-	local instance = Runtime.useInstance(function()
+local MIN_SIZE = Vector2.new(50, 50)
+
+return Runtime.widget(function(options, fn)
+	local closed, setClosed = Runtime.useState(false)
+
+	local refs = Runtime.useInstance2(function(ref)
 		local style = Style.get()
 
-		local Frame = Instance.new("Frame")
-		Frame.BackgroundColor3 = style.bg2
-		Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-		Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-		Frame.Size = UDim2.new(0, 50, 0, 40)
+		local dragConnection
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.Parent = Frame
+		local connect = createConnect()
 
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.PaddingBottom = UDim.new(0, 20)
-		UIPadding.PaddingLeft = UDim.new(0, 20)
-		UIPadding.PaddingRight = UDim.new(0, 20)
-		UIPadding.PaddingTop = UDim.new(0, 20)
-		UIPadding.Parent = Frame
+		c("Frame", {
+			[ref] = "frame",
+			BackgroundColor3 = style.bg2,
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(0, 50, 0, 40),
 
-		local UIStroke = Instance.new("UIStroke")
-		UIStroke.Parent = Frame
+			c("UICorner", {}),
 
-		local UIListLayout = Instance.new("UIListLayout")
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout.Parent = Frame
+			c("UIPadding", {
+				PaddingBottom = UDim.new(0, 20),
+				PaddingLeft = UDim.new(0, 20),
+				PaddingRight = UDim.new(0, 20),
+				PaddingTop = UDim.new(0, 20),
+			}),
 
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1
-		TextLabel.Font = Enum.Font.GothamBold
-		TextLabel.Size = UDim2.new(0, 200, 0, 40)
-		TextLabel.TextColor3 = style.mutedTextColor
-		TextLabel.TextSize = 20
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-		TextLabel.TextYAlignment = Enum.TextYAlignment.Top
-		TextLabel.Parent = Frame
+			c("UIStroke", {}),
 
-		local Container = Instance.new("ScrollingFrame")
-		Container.BackgroundTransparency = 1
-		Container.Name = "Container"
-		Container.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
-		Container.HorizontalScrollBarInset = Enum.ScrollBarInset.ScrollBar
-		Container.BorderSizePixel = 0
-		Container.ScrollBarThickness = 6
-		Container.Parent = Frame
+			c("TextButton", {
+				[ref] = "titleBar",
+				Size = UDim2.new(1, 0, 0, 40),
+				BackgroundTransparency = 1,
+				Text = "",
 
-		local UIListLayout2 = Instance.new("UIListLayout")
-		UIListLayout2.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout2.Parent = Container
-		UIListLayout2.Padding = UDim.new(0, 10)
+				InputBegan = function(clickInput)
+					if not ref.titleBar.Active then
+						return
+					end
+					if clickInput.UserInputType ~= Enum.UserInputType.MouseButton1 then
+						return
+					end
 
-		automaticSize(Frame)
-		automaticSize(Container, {
-			maxSize = Vector2.new(math.huge, 500),
+					local lastMousePosition = clickInput.Position
+
+					if
+						ref.frame.Parent:FindFirstChildWhichIsA("UIGridStyleLayout")
+						and not ref.frame.Parent:IsA("ScreenGui")
+					then
+						local beforePosition = ref.frame.AbsolutePosition
+						ref.frame.Parent = ref.frame:FindFirstAncestorOfClass("ScreenGui")
+						ref.frame.Position = UDim2.new(0, beforePosition.X, 0, beforePosition.Y)
+					end
+
+					dragConnection = connect(UserInputService, "InputChanged", function(moveInput)
+						local delta = lastMousePosition - moveInput.Position
+
+						lastMousePosition = moveInput.Position
+
+						ref.frame.Position = ref.frame.Position - UDim2.new(0, delta.X, 0, delta.Y)
+					end)
+				end,
+
+				InputEnded = function(input)
+					if dragConnection and input.UserInputType == Enum.UserInputType.MouseButton1 then
+						dragConnection:Disconnect()
+						dragConnection = nil
+					end
+				end,
+
+				c("Frame", {
+					[ref] = "handle",
+					Position = UDim2.new(0, -5, 0, 0),
+
+					c("TextLabel", {
+						Text = "..",
+						Position = UDim2.new(0, 0, 0, 0),
+						BackgroundTransparency = 1,
+						TextSize = 20,
+						TextColor3 = style.mutedTextColor,
+					}),
+
+					c("TextLabel", {
+						Text = "..",
+						Position = UDim2.new(0, 0, 0, 7),
+						BackgroundTransparency = 1,
+						TextSize = 20,
+						TextColor3 = style.mutedTextColor,
+					}),
+
+					c("TextLabel", {
+						Text = "..",
+						Position = UDim2.new(0, 0, 0, -7),
+						BackgroundTransparency = 1,
+						TextSize = 20,
+						TextColor3 = style.mutedTextColor,
+					}),
+				}),
+
+				c("TextLabel", {
+					[ref] = "title",
+					BackgroundTransparency = 1,
+					Font = Enum.Font.GothamBold,
+					Size = UDim2.new(1, 0, 1, 0),
+					TextColor3 = style.mutedTextColor,
+					TextSize = 20,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Top,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+				}),
+
+				c("TextButton", {
+					[ref] = "close",
+					BackgroundColor3 = Color3.fromHex("e74c3c"),
+					Size = UDim2.new(0, 20, 0, 20),
+					Text = "",
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = UDim2.new(1, -10, 0, 0),
+					TextColor3 = Color3.fromHex("#71190f"),
+					TextSize = 20,
+					Font = Enum.Font.Gotham,
+
+					MouseEnter = function()
+						ref.close.Text = "x"
+					end,
+
+					MouseLeave = function()
+						ref.close.Text = ""
+					end,
+
+					Activated = function()
+						setClosed(true)
+					end,
+
+					c("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}),
+				}),
+			}),
+
+			c("ScrollingFrame", {
+				[ref] = "container",
+				BackgroundTransparency = 1,
+				VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
+				HorizontalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
+				BorderSizePixel = 0,
+				ScrollBarThickness = 6,
+				Position = UDim2.new(0, 0, 0, 40),
+
+				c("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 10),
+				}),
+			}),
+
+			c("TextButton", {
+				[ref] = "resizeHandle",
+				Size = UDim2.new(0, 20, 0, 20),
+				Text = "≡",
+				Font = Enum.Font.SourceSans,
+				TextSize = 20,
+				Rotation = -45,
+				BackgroundTransparency = 1,
+				TextColor3 = style.mutedTextColor,
+				Position = UDim2.new(1, 0, 1, 0),
+
+				InputBegan = function(clickInput)
+					if clickInput.UserInputType ~= Enum.UserInputType.MouseButton1 then
+						return
+					end
+
+					local initialMousePosition = clickInput.Position
+					local initialSize = ref.container.AbsoluteSize
+
+					dragConnection = connect(UserInputService, "InputChanged", function(moveInput)
+						local delta = Vector2.new(
+							(moveInput.Position.X - initialMousePosition.X),
+							(moveInput.Position.Y - initialMousePosition.Y)
+						)
+
+						local size = initialSize + delta
+
+						ref.container:SetAttribute(
+							"maxSize",
+							Vector2.new(math.max(MIN_SIZE.X, size.X), math.max(MIN_SIZE.Y, size.Y))
+						)
+					end)
+				end,
+
+				InputEnded = function(input)
+					if dragConnection and input.UserInputType == Enum.UserInputType.MouseButton1 then
+						dragConnection:Disconnect()
+						dragConnection = nil
+					end
+				end,
+			}),
 		})
 
-		return Frame, Container
+		automaticSize(ref.container)
+		automaticSize(ref.frame)
+
+		return ref.frame
 	end)
 
-	instance.TextLabel.Text = title and string.upper(title) or ""
+	if type(options) == "string" then
+		options = {
+			title = options,
+		}
+	end
+
+	local movable = if options.movable ~= nil then options.movable else true
+	local resizable = if options.resizable ~= nil then options.movable else true
+
+	refs.close.Visible = options.closable or false
+	refs.handle.Visible = movable
+	refs.titleBar.Active = movable
+	refs.resizeHandle.Visible = resizable
+
+	refs.title.Size = UDim2.new(1, if options.closable then -30 else 0, 1, 0)
+
+	local spaces = if movable then "  " else ""
+	refs.title.Text = options.title and spaces .. string.upper(options.title) or ""
+
+	Runtime.useEffect(function()
+		refs.container:SetAttribute("maxSize", options.maxSize or Vector2.new(math.huge, 500))
+	end, options.maxSize)
+
+	Runtime.useEffect(function()
+		refs.container:SetAttribute("minSize", options.minSize)
+	end, options.minSize)
 
 	Runtime.scope(fn)
+
+	local handle = {
+		closed = function()
+			if closed then
+				setClosed(false)
+				return true
+			end
+
+			return false
+		end,
+	}
+
+	return handle
 end)
