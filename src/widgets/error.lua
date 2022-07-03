@@ -2,8 +2,9 @@ local Runtime = require(script.Parent.Parent.Runtime)
 local create = require(script.Parent.Parent.create)
 
 return Runtime.widget(function(text)
-	local instance = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		return create("Frame", {
+			[ref] = "error",
 			BackgroundTransparency = 0,
 			BackgroundColor3 = Color3.fromRGB(231, 76, 60),
 			Name = "Error",
@@ -31,7 +32,7 @@ return Runtime.widget(function(text)
 
 			create("TextLabel", {
 				Name = "error",
-				Font = Enum.Font.GothamSemibold,
+				Font = Enum.Font.GothamMedium,
 				BackgroundTransparency = 1,
 				TextColor3 = Color3.fromRGB(255, 255, 255),
 				TextSize = 20,
@@ -43,6 +44,8 @@ return Runtime.widget(function(text)
 			}),
 		})
 	end)
+
+	local instance = refs.error
 
 	instance.error.Text = text
 end)

@@ -28,10 +28,11 @@ local create = require(script.Parent.Parent.create)
 
 return Runtime.widget(function(text)
 	local clicked, setClicked = Runtime.useState(false)
-	local instance = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		return create("TextButton", {
+			[ref] = "button",
 			BackgroundColor3 = style.bg3,
 			BorderSizePixel = 0,
 			Font = Enum.Font.SourceSans,
@@ -46,6 +47,8 @@ return Runtime.widget(function(text)
 			end,
 		})
 	end)
+
+	local instance = refs.button
 
 	instance.Text = text
 

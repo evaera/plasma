@@ -4,7 +4,7 @@ local Style = require(script.Parent.Parent.Style)
 local automaticSize = require(script.Parent.Parent.automaticSize)
 
 return Runtime.widget(function(text)
-	local refs = Runtime.useInstance2(function(ref)
+	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		create("TextLabel", {

@@ -12,11 +12,12 @@ To create a widget, pass a function to the `widget` function.
 local Plasma = require(ReplicatedStorage.Plasma)
 
 return Plasma.widget(function(text, color)
-	local label = Plasma.useInstance(function()
+	local refs = Plasma.useInstance(function(ref)
 		-- Code here only runs one time to create the widget.
 		-- Only set properties here that DO NOT depend on arguments.
 
 		return Plasma.create("TextButton", {
+			[ref] = "button",
 			Font = Enum.Font.GothamBold,
 			TextColor3 = Color3.fromRGB(147, 147, 147),
 			BackgroundColor3 = Color3.fromRGB(54, 54, 54),
@@ -40,12 +41,16 @@ return Plasma.widget(function(text, color)
 
 	-- In the main body of the function, we set the properties that do depend on arguments.
 
-	label.Text = text
-	label.TextColor3 = color
+	refs.button.Text = text
+	refs.button.TextColor3 = color
 end)
 ```
 
-In the above code snippet, we use the [`useInstance`](/api/Plasma#useInstance) hook, which takes a callback that is used to create the initial UI for the widget. The callback is only ever invoked on the first time this widget runs and never again. It also returns what we returned from it, so we can use it further.
+In the above code snippet, we use the [`useInstance`](/api/Plasma#useInstance) hook, which takes a callback that is used to create the initial UI for the widget. The callback is only ever invoked on the first time this widget runs and never again.
+
+The function you pass in to `useInstance` is passed a blank table. We called it `ref` in the example above. When you use it as a table key to the `Plasma.create` function, a reference to the instance you're creating is created in the table, at the key you specify.
+
+In the example above, the code `[ref] = "button"` means that the key "button" in the `ref` table will be set to the TextButton.
 
 ## Only updating properties when necessary with useEffect
 Typically, setting properties every frame is not that expensive of an operation, but if you only wanted to set `Text` and `TextColor3` when their arguments actually changed, we can use the [`useEffect`](/api/Plasma#useEffect) hook:
@@ -69,7 +74,7 @@ local Plasma = require(ReplicatedStorage.Plasma)
 return Plasma.widget(function(text, color)
 	local times, setTimes = Plasma.useState(0) -- new!
 
-	local label = Plasma.useInstance(function()
+	local refs = Plasma.useInstance(function(ref)
 		return Plasma.create("TextButton", {
 			-- snip --
 
@@ -82,7 +87,7 @@ return Plasma.widget(function(text, color)
 	end)
 
 
-	label.Text = text .. " " .. times -- new!
+	refs.button.Text = text .. " " .. times -- new!
 end)
 ```
 (Extraneous lines have been removed from the above example)

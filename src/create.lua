@@ -1,4 +1,3 @@
-local CollectionService = game:GetService("CollectionService")
 local Runtime = require(script.Parent.Runtime)
 
 --[=[

@@ -96,15 +96,19 @@ return Runtime.widget(function(from, to, color)
 
 	assert(typeof(from) == "Vector3" and typeof(to) == "Vector3", "Passed parameters are of invalid types")
 
-	local folder = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local container = Instance.new("Folder")
 		container.Name = "Arrow"
+
+		ref.folder = container
 
 		arrow("front", container, 1, color, 1)
 		arrow("back", container, 2, Color3.new(0, 0, 0), -1)
 
 		return container
 	end)
+
+	local folder = refs.folder
 
 	update(folder.frontBody, folder.frontPoint, from, to, 1)
 	update(folder.backBody, folder.backPoint, from, to, 1.4)

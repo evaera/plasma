@@ -3,10 +3,11 @@ local create = require(script.Parent.Parent.create)
 local Style = require(script.Parent.Parent.Style)
 
 return Runtime.widget(function(text)
-	local instance = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		return create("TextLabel", {
+			[ref] = "heading",
 			BackgroundTransparency = 1,
 			Font = Enum.Font.GothamBold,
 			AutomaticSize = Enum.AutomaticSize.XY,
@@ -15,5 +16,6 @@ return Runtime.widget(function(text)
 		})
 	end)
 
+	local instance = refs.heading
 	instance.Text = text
 end)

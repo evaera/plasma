@@ -257,7 +257,7 @@ end
 
 --[=[
 	@within Plasma
-	@param creator () -> (Instance, Instance?) -- A callback which creates the widget and returns it
+	@param creator (ref: {}) -> (Instance, Instance?) -- A callback which creates the widget and returns it
 	@return Instance -- Returns the instance returned by `creator`
 	@tag hooks
 
@@ -267,7 +267,8 @@ end
 	The callback can optionally return a second value, which is the instance where children of this widget should be
 	placed. Otherwise, children are placed in the first instance returned.
 
-	`useInstance` returns the instance returned by the `creator` callback on the initial call and all further calls.
+	`useInstance` returns the `ref` table that is passed to it. You can use this to create references to objects
+	you want to update in the widget body.
 ]=]
 function Runtime.useInstance(creator: () -> Instance): Instance
 	local node = stack[#stack].node
@@ -276,7 +277,8 @@ function Runtime.useInstance(creator: () -> Instance): Instance
 	if node.instance == nil then
 		local parent = parentFrame.node.containerInstance or parentFrame.node.instance
 
-		local instance, container = creator()
+		node.refs = {}
+		local instance, container = creator(node.refs)
 
 		if instance ~= nil then
 			instance.Parent = parent
@@ -285,35 +287,6 @@ function Runtime.useInstance(creator: () -> Instance): Instance
 
 		if container ~= nil then
 			node.containerInstance = container
-		end
-	end
-
-	if node.instance ~= nil and node.instance:IsA("GuiObject") then
-		parentFrame.childrenCount += 1
-		node.instance.LayoutOrder = parentFrame.childrenCount
-	end
-
-	return node.instance
-end
-
-function Runtime.useInstance2(creator: (refs: {}) -> Instance): Instance
-	local node = stack[#stack].node
-	local parentFrame = Runtime.nearestStackFrameWithInstance()
-
-	if node.instance == nil then
-		local parent = parentFrame.node.containerInstance or parentFrame.node.instance
-
-		node.refs = {}
-
-		local instance = creator(node.refs)
-
-		if instance ~= nil then
-			instance.Parent = parent
-			node.instance = instance
-		end
-
-		if node.refs.container ~= nil then
-			node.containerInstance = node.refs.container
 		end
 	end
 

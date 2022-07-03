@@ -25,7 +25,7 @@ return Runtime.widget(function(options, fn)
 		options.padding = UDim.new(0, 10)
 	end
 
-	local frame = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local Frame = Instance.new("Frame")
 		Frame.BackgroundTransparency = 1
 
@@ -35,10 +35,14 @@ return Runtime.widget(function(options, fn)
 		UIListLayout.Padding = options.padding
 		UIListLayout.Parent = Frame
 
+		ref.frame = Frame
+
 		automaticSize(Frame)
 
 		return Frame
 	end)
+
+	local frame = refs.frame
 
 	frame.UIListLayout.HorizontalAlignment = options.alignment or Enum.HorizontalAlignment.Left
 

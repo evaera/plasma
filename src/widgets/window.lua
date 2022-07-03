@@ -42,7 +42,7 @@ local MIN_SIZE = Vector2.new(50, 50)
 return Runtime.widget(function(options, fn)
 	local closed, setClosed = Runtime.useState(false)
 
-	local refs = Runtime.useInstance2(function(ref)
+	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		local dragConnection
@@ -238,7 +238,8 @@ return Runtime.widget(function(options, fn)
 		automaticSize(ref.container)
 		automaticSize(ref.frame)
 
-		return ref.frame
+		return ref.frame, ref.container
+
 	end)
 
 	if type(options) == "string" then

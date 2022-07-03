@@ -4,10 +4,11 @@ local create = require(script.Parent.Parent.create)
 local automaticSize = require(script.Parent.Parent.automaticSize)
 
 local cell = Runtime.widget(function(text)
-	local label = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		return create("TextLabel", {
+			[ref] = "label",
 			BackgroundTransparency = 1,
 			Font = Enum.Font.SourceSans,
 			AutomaticSize = Enum.AutomaticSize.XY,
@@ -24,9 +25,7 @@ local cell = Runtime.widget(function(text)
 		})
 	end)
 
-	Runtime.useEffect(function()
-		label.Text = text
-	end, text)
+	refs.label.Text = text
 end)
 
 local row = Runtime.widget(function(columns, darken)
@@ -62,7 +61,7 @@ end)
 return Runtime.widget(function(items, options)
 	options = options or {}
 
-	local refs = Runtime.useInstance2(function(ref)
+	local refs = Runtime.useInstance(function(ref)
 		create("Frame", {
 			[ref] = "table",
 			BackgroundTransparency = 1,

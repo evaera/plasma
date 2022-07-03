@@ -37,7 +37,6 @@
 ]=]
 
 local Runtime = require(script.Parent.Parent.Runtime)
-local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)
 
 return Runtime.widget(function(text, options)
@@ -46,8 +45,9 @@ return Runtime.widget(function(text, options)
 	local checked, setChecked = Runtime.useState(false)
 	local clicked, setClicked = Runtime.useState(false)
 
-	local instance = Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local Checkbox = create("Frame", {
+			[ref] = "checkbox",
 			BackgroundTransparency = 1,
 			Name = "Checkbox",
 			Size = UDim2.new(0, 30, 0, 30),
@@ -75,7 +75,7 @@ return Runtime.widget(function(text, options)
 
 			create("TextLabel", {
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				Font = Enum.Font.GothamSemibold,
+				Font = Enum.Font.GothamMedium,
 				TextColor3 = Color3.fromRGB(203, 203, 203),
 				TextSize = 18,
 				AutomaticSize = Enum.AutomaticSize.X,
@@ -91,6 +91,8 @@ return Runtime.widget(function(text, options)
 
 		return Checkbox
 	end)
+
+	local instance = refs.checkbox
 
 	instance.TextLabel.Text = text
 	instance.TextButton.AutoButtonColor = not options.disabled
