@@ -1,4 +1,12 @@
 # Changelog
+## [0.4.0] - Unreleased
+### Added
+- Table widget
+### Changed
+- `useInstance` no longer returns the root instance. Instead, it returns a `ref` table, which is also created and passed to the `useInstance` function itself as a first parameter. You can create keys in the table to access instances in the widget body.
+- The `create` function now has special behavior if a key is passed in the props table. It will set a value in the table to the instance that's being created at the key specified by the value in the props table. E.g., `[ref] = "button"` will set the key "button" in the `ref` table to the button that was created.
+- `automaticSize` now covers more cases, including text objects and objects with no UIGridStyleLayout within them.
+- The window widget is now draggable, resizable, and closable.
 
 ## [0.3.0] - 2022-07-01
 ### Added
