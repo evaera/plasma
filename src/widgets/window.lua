@@ -212,6 +212,10 @@ return Runtime.widget(function(options, fn)
 					local initialSize = ref.container.AbsoluteSize
 
 					dragConnection = connect(UserInputService, "InputChanged", function(moveInput)
+						if moveInput.UserInputType ~= Enum.UserInputType.MouseMovement then
+							return
+						end
+
 						local delta = Vector2.new(
 							(moveInput.Position.X - initialMousePosition.X),
 							(moveInput.Position.Y - initialMousePosition.Y)
