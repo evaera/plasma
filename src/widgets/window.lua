@@ -1,3 +1,4 @@
+local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
 --[=[
@@ -87,7 +88,14 @@ return Runtime.widget(function(options, fn)
 						and not ref.frame.Parent:IsA("ScreenGui")
 					then
 						local beforePosition = ref.frame.AbsolutePosition
-						ref.frame.Parent = ref.frame:FindFirstAncestorOfClass("ScreenGui")
+
+						local screenGui = ref.frame:FindFirstAncestorOfClass("ScreenGui")
+
+						if screenGui.IgnoreGuiInset then
+							beforePosition += GuiService:GetGuiInset()
+						end
+
+						ref.frame.Parent = screenGui
 						ref.frame.Position = UDim2.new(0, beforePosition.X, 0, beforePosition.Y)
 					end
 
