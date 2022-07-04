@@ -331,7 +331,17 @@ local function scope(level, scopeKey, fn, ...)
 	currentNode.generation = parentNode.generation
 
 	table.insert(stack, newStackFrame(currentNode))
-	local success, widgetHandle = xpcall(fn, debug.traceback, ...)
+	local thread = coroutine.create(fn)
+
+	local success, widgetHandle = coroutine.resume(thread, ...)
+
+	if coroutine.status(thread) ~= "dead" then
+		success = false
+		widgetHandle =
+			"Plasma: Handler passed to Plasma.start yielded! Yielding is not allowed and the handler thread has been closed."
+
+		coroutine.close(thread)
+	end
 
 	if not success then
 		if os.clock() - recentErrorLastTime > 10 then
@@ -339,15 +349,17 @@ local function scope(level, scopeKey, fn, ...)
 			recentErrors = {}
 		end
 
-		if not recentErrors[widgetHandle] then
-			task.spawn(error, tostring(widgetHandle))
+		local errorValue = debug.traceback(thread, tostring(widgetHandle))
+
+		if not recentErrors[errorValue] then
+			task.spawn(error, tostring(errorValue))
 			warn("Plasma: The above error will be suppressed for the next 10 seconds")
-			recentErrors[widgetHandle] = true
+			recentErrors[errorValue] = true
 		end
 
 		local errorWidget = require(script.Parent.widgets.error)
 
-		errorWidget(tostring(widgetHandle))
+		errorWidget(tostring(errorValue))
 	end
 
 	table.remove(stack)
@@ -395,26 +407,8 @@ function Runtime.start(rootNode: Node, fn, ...)
 		rootNode.generation = 0
 	end
 
-	local handler = function(...)
-		local thread = coroutine.running()
-
-		task.defer(function()
-			if coroutine.status(thread) ~= "dead" then
-				task.spawn(
-					error,
-					"Plasma: Handler passed to Plasma.start yielded! Yielding is not allowed and will lead to unexpected results."
-				)
-				warn("Plasma UI will not update until the yielded thread has resumed...")
-
-				yieldedThread = thread
-			end
-		end)
-
-		return fn(...)
-	end
-
 	stack[1] = newStackFrame(rootNode)
-	scope(2, "root", handler, ...)
+	scope(2, "root", fn, ...)
 	table.remove(stack)
 
 	for childKey, childNode in pairs(rootNode.children) do
