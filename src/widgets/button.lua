@@ -36,9 +36,15 @@ return Runtime.widget(function(text)
 			BackgroundColor3 = style.bg3,
 			BorderSizePixel = 0,
 			Font = Enum.Font.SourceSans,
-			Size = UDim2.new(0, 200, 0, 50),
+			Size = UDim2.new(0, 100, 0, 40),
 			TextColor3 = style.textColor,
+			AutomaticSize = Enum.AutomaticSize.X,
 			TextSize = 21,
+
+			create("UIPadding", {
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 10),
+			}),
 
 			create("UICorner"),
 
