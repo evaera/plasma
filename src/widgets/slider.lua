@@ -5,18 +5,19 @@ local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)
 
 return Runtime.widget(function(options)
-	local max = options.max
+	local min = options.min or 0
+	local max = options.max or 1
 	local value, setValue = Runtime.useState(options.initial or 0)
 
 	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		local frame = create("Frame", {
+			[ref] = "frame",
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 200, 0, 30),
 
 			create("Frame", {
-				[ref] = "frame",
 				Name = "line",
 				Size = UDim2.new(1, 0, 0, 2),
 				BackgroundColor3 = style.mutedTextColor,
@@ -58,7 +59,7 @@ return Runtime.widget(function(options)
 
 				local percent = x / maxPos
 
-				setValue(percent * max)
+				setValue(percent * (max - min) + min)
 			end)
 		end)
 
@@ -72,7 +73,7 @@ return Runtime.widget(function(options)
 	end)
 
 	local maxPos = refs.frame.AbsoluteSize.X - refs.frame.dot.AbsoluteSize.X
-	local percent = value / max
+	local percent = (value - min) / (max - min)
 	refs.frame.dot.Position = UDim2.new(0, percent * maxPos + refs.frame.dot.AbsoluteSize.X/2, 0.5, 0)
 
 	return value
