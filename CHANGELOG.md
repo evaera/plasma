@@ -1,9 +1,8 @@
 # Changelog
-## [0.4.0] - Unreleased
+## [0.4.0] - 2022-07-05
 ### Added
 - Table widget
 - Added font option to heading
-
 
 ### Changed
 - `useInstance` no longer returns the root instance. Instead, it returns a `ref` table, which is also created and passed to the `useInstance` function itself as a first parameter. You can create keys in the table to access instances in the widget body.
