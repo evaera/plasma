@@ -79,6 +79,7 @@ return Runtime.widget(function(text, options)
 				TextColor3 = Color3.fromRGB(203, 203, 203),
 				TextSize = 18,
 				AutomaticSize = Enum.AutomaticSize.X,
+				RichText = true,
 			}),
 
 			create("UIListLayout", {

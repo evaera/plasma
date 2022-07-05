@@ -16,6 +16,7 @@ local cell = Runtime.widget(function(text, font)
 			TextColor3 = style.textColor,
 			TextSize = 20,
 			TextXAlignment = Enum.TextXAlignment.Left,
+			RichText = true,
 
 			create("UIPadding", {
 				PaddingBottom = UDim.new(0, 8),

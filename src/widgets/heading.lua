@@ -14,6 +14,7 @@ return Runtime.widget(function(text, options)
 			AutomaticSize = Enum.AutomaticSize.XY,
 			TextColor3 = style.mutedTextColor,
 			TextSize = 20,
+			RichText = true,
 		})
 	end)
 
