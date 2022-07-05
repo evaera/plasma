@@ -98,6 +98,7 @@ end)
 	@within Plasma
 	@function table
 	@param items {{string}}
+	@param options {marginTop?: number, selectable?: boolean, font?: Font, headings?: boolean}
 	@tag widgets
 
 	A table widget. Items is a list of rows, with each row being a list of cells.

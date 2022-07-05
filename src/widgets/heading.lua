@@ -2,6 +2,15 @@ local Runtime = require(script.Parent.Parent.Runtime)
 local create = require(script.Parent.Parent.create)
 local Style = require(script.Parent.Parent.Style)
 
+--[=[
+	@within Plasma
+	@function heading
+	@param text string
+	@param options? {font: Font}
+	@tag widgets
+
+	Text, but bigger!
+]=]
 return Runtime.widget(function(text, options)
 	options = options or {}
 	local refs = Runtime.useInstance(function(ref)

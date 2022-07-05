@@ -3,6 +3,14 @@ local create = require(script.Parent.Parent.create)
 local Style = require(script.Parent.Parent.Style)
 local automaticSize = require(script.Parent.Parent.automaticSize)
 
+--[=[
+	@within Plasma
+	@function label
+	@param text string
+	@tag widgets
+
+	Text.
+]=]
 return Runtime.widget(function(text)
 	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
