@@ -4,13 +4,16 @@ local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)
 
-return Runtime.widget(function(max)
-	local value, setValue = Runtime.useState(0)
+return Runtime.widget(function(options)
+	local min = options.min or 0
+	local max = options.max or 1
+	local value, setValue = Runtime.useState(options.initial or 0)
 
-	Runtime.useInstance(function()
+	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
 		local frame = create("Frame", {
+			[ref] = "frame",
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 200, 0, 30),
 
@@ -25,8 +28,9 @@ return Runtime.widget(function(max)
 			create("TextButton", {
 				Name = "dot",
 				Size = UDim2.new(0, 15, 0, 15),
+				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundColor3 = style.textColor,
-				Position = UDim2.new(0, 0, 0.5, -7),
+				Position = UDim2.new(0, 0, 0.5, 0),
 				Text = "",
 
 				create("UICorner", {
@@ -49,14 +53,13 @@ return Runtime.widget(function(max)
 
 				local x = UserInputService:GetMouseLocation().X
 
-				x -= frame.AbsolutePosition.X
-				x = math.clamp(x, 0, frame.AbsoluteSize.X)
+				local maxPos = frame.AbsoluteSize.X - frame.dot.AbsoluteSize.X
+				x -= frame.AbsolutePosition.X + frame.dot.AbsoluteSize.X/2
+				x = math.clamp(x, 0, maxPos)
 
-				local percent = x / frame.AbsoluteSize.X
+				local percent = x / maxPos
 
-				frame.dot.Position = UDim2.new(0, x, 0.5, -7)
-
-				setValue(percent * max)
+				setValue(percent * (max - min) + min)
 			end)
 		end)
 
@@ -68,6 +71,10 @@ return Runtime.widget(function(max)
 
 		return frame
 	end)
+
+	local maxPos = refs.frame.AbsoluteSize.X - refs.frame.dot.AbsoluteSize.X
+	local percent = (value - min) / (max - min)
+	refs.frame.dot.Position = UDim2.new(0, percent * maxPos + refs.frame.dot.AbsoluteSize.X/2, 0.5, 0)
 
 	return value
 end)
