@@ -33,7 +33,6 @@ type StackFrame = {
 
 local stack: { StackFrame } = {}
 
-local yieldedThread
 local recentErrors = {}
 local recentErrorLastTime = 0
 
@@ -387,38 +386,9 @@ end
 	If this function is used, `Plasma.beginFrame`, `Plasma.continueFrame`, and `Plasma.finishFrame` should not be used.
 ]=]
 function Runtime.start(rootNode: Node, fn, ...)
-	if yieldedThread then
-		if coroutine.status(yieldedThread) ~= "dead" then
-			return
-		end
-		yieldedThread = nil
-		warn("Plasma: Erroneously yielded thread has resumed, UI is no longer blocked.")
-	end
+	Runtime.beginFrame(rootNode, fn, ...)
 
-	if #stack > 0 then
-		error("Runtime.start cannot be called while Runtime.start is already running", 2)
-	end
-
-	debug.profilebegin("Plasma")
-
-	if rootNode.generation == 0 then
-		rootNode.generation = 1
-	else
-		rootNode.generation = 0
-	end
-
-	stack[1] = newStackFrame(rootNode)
-	scope(2, "root", fn, ...)
-	table.remove(stack)
-
-	for childKey, childNode in pairs(rootNode.children) do
-		if childNode.generation ~= rootNode.generation then
-			destroyNode(childNode)
-			rootNode.children[childKey] = nil
-		end
-	end
-
-	debug.profileend()
+	Runtime.finishFrame(rootNode)
 end
 
 --[=[
