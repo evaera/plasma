@@ -16,6 +16,7 @@ return Runtime.widget(function(options)
 			Size = UDim2.new(0, 200, 0, 30),
 
 			create("Frame", {
+				[ref] = "frame",
 				Name = "line",
 				Size = UDim2.new(1, 0, 0, 2),
 				BackgroundColor3 = style.mutedTextColor,
@@ -36,8 +37,6 @@ return Runtime.widget(function(options)
 				}),
 			}),
 		})
-
-		ref.frame = frame
 
 		local inputs = {}
 
