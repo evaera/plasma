@@ -5,6 +5,12 @@ local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)
 
 return Runtime.widget(function(options)
+	if type(options) == "number" then
+		options = {
+			max = options,
+		}
+	end
+
 	local min = options.min or 0
 	local max = options.max or 1
 	local value, setValue = Runtime.useState(options.initial or 0)
@@ -54,7 +60,7 @@ return Runtime.widget(function(options)
 				local x = UserInputService:GetMouseLocation().X
 
 				local maxPos = frame.AbsoluteSize.X - frame.dot.AbsoluteSize.X
-				x -= frame.AbsolutePosition.X + frame.dot.AbsoluteSize.X/2
+				x -= frame.AbsolutePosition.X + frame.dot.AbsoluteSize.X / 2
 				x = math.clamp(x, 0, maxPos)
 
 				local percent = x / maxPos
@@ -74,7 +80,7 @@ return Runtime.widget(function(options)
 
 	local maxPos = refs.frame.AbsoluteSize.X - refs.frame.dot.AbsoluteSize.X
 	local percent = (value - min) / (max - min)
-	refs.frame.dot.Position = UDim2.new(0, percent * maxPos + refs.frame.dot.AbsoluteSize.X/2, 0.5, 0)
+	refs.frame.dot.Position = UDim2.new(0, percent * maxPos + refs.frame.dot.AbsoluteSize.X / 2, 0.5, 0)
 
 	return value
 end)
