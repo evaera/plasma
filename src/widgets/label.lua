@@ -13,6 +13,7 @@ return Runtime.widget(function(text)
 			Font = Enum.Font.SourceSans,
 			TextColor3 = style.textColor,
 			TextSize = 20,
+			RichText = true,
 		})
 
 		automaticSize(ref.label)
