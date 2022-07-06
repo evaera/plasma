@@ -1,4 +1,5 @@
 local GuiService = game:GetService("GuiService")
+local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 
 --[=[
@@ -39,6 +40,7 @@ local automaticSize = require(script.Parent.Parent.automaticSize)
 local c = require(script.Parent.Parent.create)
 
 local MIN_SIZE = Vector2.new(50, 50)
+local MAX_SIZE = Vector2.new(StarterGui.AbsoluteSize.X * 0.8, 500)
 
 return Runtime.widget(function(options, fn)
 	local closed, setClosed = Runtime.useState(false)
@@ -274,7 +276,7 @@ return Runtime.widget(function(options, fn)
 	refs.title.Text = options.title and spaces .. string.upper(options.title) or ""
 
 	Runtime.useEffect(function()
-		refs.container:SetAttribute("maxSize", options.maxSize or Vector2.new(2000, 500))
+		refs.container:SetAttribute("maxSize", options.maxSize or MAX_SIZE)
 	end, options.maxSize)
 
 	Runtime.useEffect(function()
