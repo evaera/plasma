@@ -156,7 +156,6 @@ return Runtime.widget(function(options, fn)
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextTruncate = Enum.TextTruncate.AtEnd,
-					RichText = true,
 				}),
 
 				c("TextButton", {
