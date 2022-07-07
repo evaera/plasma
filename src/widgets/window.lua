@@ -1,5 +1,4 @@
 local GuiService = game:GetService("GuiService")
-local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 
 --[=[
@@ -40,7 +39,7 @@ local automaticSize = require(script.Parent.Parent.automaticSize)
 local c = require(script.Parent.Parent.create)
 
 local MIN_SIZE = Vector2.new(50, 50)
-local MAX_SIZE = Vector2.new(StarterGui.AbsoluteSize.X * 0.8, 500)
+local MAX_SIZE = Vector2.new(1500, 500)
 
 return Runtime.widget(function(options, fn)
 	local closed, setClosed = Runtime.useState(false)
