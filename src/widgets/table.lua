@@ -91,6 +91,9 @@ local row = Runtime.widget(function(columns, darken, selectable, font)
 			end
 			return false
 		end,
+		hovered = function()
+			return hovering
+		end,
 	}
 end)
 
@@ -159,6 +162,7 @@ return Runtime.widget(function(items, options)
 	end)
 
 	local selected, setSelected = Runtime.useState()
+	local hovered
 
 	for i, columns in items do
 		local selectable = options.selectable
@@ -169,10 +173,14 @@ return Runtime.widget(function(items, options)
 			font = Enum.Font.GothamBold
 		end
 
-		local rowClicked = row(columns, i % 2 == 1, selectable, font):clicked()
+		local currentRow = row(columns, i % 2 == 1, selectable, font)
 
-		if rowClicked then
+		if currentRow:clicked() then
 			setSelected(columns)
+		end
+
+		if currentRow:hovered() then
+			hovered = columns
 		end
 	end
 
@@ -182,6 +190,9 @@ return Runtime.widget(function(items, options)
 				setSelected(nil)
 				return selected
 			end
+		end,
+		hovered = function()
+			return hovered
 		end,
 	}
 end)
