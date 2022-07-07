@@ -12,10 +12,11 @@ local function applyLayout(container, layout)
 			maxSize = Vector2.new(0, 0)
 		else
 			local parentSize = container.Parent.AbsoluteSize
+			local parentPosition = container.Parent.AbsolutePosition
 
 			maxSize = Vector2.new(
-				(parentSize.X / maxSize.X.Scale) + maxSize.X.Offset,
-				(parentSize.Y / maxSize.Y.Scale) + maxSize.Y.Offset
+				(parentSize.X / maxSize.X.Scale) + maxSize.X.Offset - (container.AbsolutePosition.X - parentPosition.X),
+				(parentSize.Y / maxSize.Y.Scale) + maxSize.Y.Offset - (container.AbsolutePosition.Y - parentPosition.Y)
 			)
 		end
 	end
