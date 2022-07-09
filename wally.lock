@@ -4,7 +4,7 @@ registry = "test"
 
 [[package]]
 name = "evaera/plasma"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [["TestEZ", "roblox/testez@0.4.1"]]
 
 [[package]]

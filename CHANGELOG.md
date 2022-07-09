@@ -1,4 +1,10 @@
 # Changelog
+
+## [0.4.1] - 2022-07-08
+### Added
+- Added highlight widget
+- table now supports a `hovered` method in its handle
+
 ## [0.4.0] - 2022-07-05
 ### Added
 - Table widget
