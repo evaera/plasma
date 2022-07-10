@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.2] - 2022-07-10
+### Fixed
+- Fixed Slider not firing event callback for drag connection (Fixes using slider on the server in Matter debugger)
+
 ## [0.4.1] - 2022-07-08
 ### Added
 - Added highlight widget

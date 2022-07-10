@@ -3,6 +3,7 @@ local UserInputService = game:GetService("UserInputService")
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
 local create = require(script.Parent.Parent.create)
+local createConnect = require(script.Parent.Parent.createConnect)
 
 return Runtime.widget(function(options)
 	if type(options) == "number" then
@@ -16,7 +17,11 @@ return Runtime.widget(function(options)
 	local value, setValue = Runtime.useState(options.initial or 0)
 
 	local refs = Runtime.useInstance(function(ref)
+		local connect = createConnect()
+
 		local style = Style.get()
+
+		local connection
 
 		local frame = create("Frame", {
 			[ref] = "frame",
@@ -33,6 +38,7 @@ return Runtime.widget(function(options)
 
 			create("TextButton", {
 				Name = "dot",
+				[ref] = "dot",
 				Size = UDim2.new(0, 15, 0, 15),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundColor3 = style.textColor,
@@ -42,38 +48,45 @@ return Runtime.widget(function(options)
 				create("UICorner", {
 					CornerRadius = UDim.new(1, 0),
 				}),
+
+				InputBegan = function(input)
+					if input.UserInputType ~= Enum.UserInputType.MouseButton1 then
+						return
+					end
+
+					if connection then
+						connection:Disconnect()
+					end
+
+					connection = connect(UserInputService, "InputChanged", function(moveInput)
+						if moveInput.UserInputType ~= Enum.UserInputType.MouseMovement then
+							return
+						end
+
+						local x = moveInput.Position.X
+
+						local maxPos = ref.frame.AbsoluteSize.X - ref.dot.AbsoluteSize.X
+						x -= ref.frame.AbsolutePosition.X + ref.dot.AbsoluteSize.X / 2
+						x = math.clamp(x, 0, maxPos)
+
+						local percent = x / maxPos
+
+						setValue(percent * (max - min) + min)
+					end)
+				end,
+
+				InputEnded = function(input)
+					if input.UserInputType ~= Enum.UserInputType.MouseButton1 then
+						return
+					end
+
+					if connection then
+						connection:Disconnect()
+						connection = nil
+					end
+				end,
 			}),
 		})
-
-		local inputs = {}
-
-		frame.dot.InputBegan:Connect(function(input)
-			if input.UserInputType ~= Enum.UserInputType.MouseButton1 then
-				return
-			end
-
-			inputs[input] = UserInputService.InputChanged:Connect(function(moveInput)
-				if moveInput.UserInputType ~= Enum.UserInputType.MouseMovement then
-					return
-				end
-
-				local x = UserInputService:GetMouseLocation().X
-
-				local maxPos = frame.AbsoluteSize.X - frame.dot.AbsoluteSize.X
-				x -= frame.AbsolutePosition.X + frame.dot.AbsoluteSize.X / 2
-				x = math.clamp(x, 0, maxPos)
-
-				local percent = x / maxPos
-
-				setValue(percent * (max - min) + min)
-			end)
-		end)
-
-		frame.dot.InputEnded:Connect(function(input)
-			if inputs[input] then
-				inputs[input]:Disconnect()
-			end
-		end)
 
 		return frame
 	end)
