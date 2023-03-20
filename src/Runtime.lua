@@ -1,42 +1,15 @@
-type EventCallback = (Instance, string, (...any) -> ()) -> ()
+local PubTypes = require(script.Parent.PubTypes)
 
-type Node = {
-	instance: Instance?,
-	refs: { [any]: Instance }?,
-	containerInstance: Instance?,
-	effects: {
-		[TopoKey]: {
-			lastDependencies: { any }?,
-			lastDependenciesLength: number,
-			destructor: (() -> ())?,
-		},
-	},
-	states: { [TopoKey]: any },
-	children: { [TopoKey]: Node },
-	generation: number,
-	eventCallback: EventCallback?,
-}
-
-type TopoKey = string
-
-type StackFrame = {
-	node: Node,
-	contextValues: {
-		[any]: any,
-	},
-	childrenCount: number,
-	effectCounts: { [TopoKey]: number },
-	stateCounts: { [TopoKey]: number },
-	childCounts: { [TopoKey]: number },
-	discriminator: string | number,
-}
+type EventCallback = PubTypes.EventCallback
+type Node = PubTypes.Node
+type StackFrame = PubTypes.StackFrame
 
 local stack: { StackFrame } = {}
 
 local recentErrors = {}
 local recentErrorLastTime = 0
 
-local function newNode(state: {}): Node
+local function newNode(state: {}?): Node
 	if state == nil then
 		state = {}
 	end
@@ -154,7 +127,7 @@ end
 	This function can be used to skip expensive work if none of the dependencies have changed since the last run.
 	For example, you might use this to set a bunch of properties in a widget if any of the inputs change.
 ]=]
-function Runtime.useEffect(callback: () -> () | () -> () -> (), ...)
+function Runtime.useEffect(callback: (() -> ()) & (() -> () -> ()), ...)
 	local frame = stack[#stack]
 	local effects = frame.node.effects
 
@@ -269,7 +242,7 @@ end
 	`useInstance` returns the `ref` table that is passed to it. You can use this to create references to objects
 	you want to update in the widget body.
 ]=]
-function Runtime.useInstance(creator: () -> Instance): Instance
+function Runtime.useInstance(creator: (refs: {}) -> Instance): Instance
 	local node = stack[#stack].node
 	local parentFrame = Runtime.nearestStackFrameWithInstance()
 
