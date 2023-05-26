@@ -38,4 +38,5 @@ return {
 	space = require(script.widgets.space),
 	table = require(script.widgets.table),
 	highlight = require(script.widgets.highlight),
+	dictionary = require(script.widgets.dictionary),
 }
