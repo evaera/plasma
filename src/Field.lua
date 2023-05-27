@@ -7,7 +7,7 @@ local Field = {
 		TEXTBOX = 1,
 		CHECKBOX = 2,
 		TEXTLABEL = 3,
-	}
+	},
 }
 
 local defaultFieldOptions = {

@@ -4,7 +4,7 @@ local automaticSize = require(script.Parent.Parent.automaticSize)
 local FieldWidgets = {
 	Vector3 = require(script.Parent.fields.vector3),
 	string = require(script.Parent.fields.string),
-	CFrame = require(script.Parent.fields.cframe)
+	CFrame = require(script.Parent.fields.cframe),
 }
 local baseField = require(script.Parent.fields.baseField)
 local Field = require(script.Parent.Parent.Field)
@@ -18,21 +18,25 @@ local function generateWidgets(fields, options)
 			fieldWidget(fieldKey, fieldValue, {
 				update = function(newValue)
 					options.update({
-						[fieldKey] = newValue
+						[fieldKey] = newValue,
 					})
-				end
+				end,
 			})
 		elseif fieldType == "table" then
-			baseField(fieldKey, "TABLE_VALUE", { expandable = true, fieldValueType = Field.FieldValueType.TEXTLABEL }, function()
-				generateWidgets(fieldValue, {
-					update = function(patch)
-						local new = table.clone(fields)
-						new[fieldKey] = patch
-						options.update(new)
-					end
-				})
-
-			end)
+			baseField(
+				fieldKey,
+				"TABLE_VALUE",
+				{ expandable = true, fieldValueType = Field.FieldValueType.TEXTLABEL },
+				function()
+					generateWidgets(fieldValue, {
+						update = function(patch)
+							local new = table.clone(fields)
+							new[fieldKey] = patch
+							options.update(new)
+						end,
+					})
+				end
+			)
 		elseif fieldType == "function" then
 			baseField(fieldKey, "FUNCTION_VALUE", { fieldValueType = Field.FieldValueType.TEXTLABEL })
 		end
@@ -46,7 +50,7 @@ return Runtime.widget(function(fields, options)
 			BackgroundTransparency = 1,
 			create("UIListLayout", {
 				[ref] = "listLayout",
-				SortOrder = Enum.SortOrder.LayoutOrder
+				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 		})
 
@@ -58,11 +62,11 @@ return Runtime.widget(function(fields, options)
 	local minCellSize = options.minCellSize or Vector2.new(100, 30)
 
 	if options.alignFields then
-		local xOffset = math.max(math.ceil(refs.listLayout.AbsoluteContentSize.X/2), minCellSize.X)
+		local xOffset = math.max(math.ceil(refs.listLayout.AbsoluteContentSize.X / 2), minCellSize.X)
 		minCellSize = Vector2.new(xOffset, minCellSize.Y)
 	end
 
-	Field.setOptions({minCellSize = minCellSize})
+	Field.setOptions({ minCellSize = minCellSize })
 
 	generateWidgets(fields, options)
 end)

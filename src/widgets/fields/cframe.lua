@@ -12,22 +12,23 @@ return Runtime.widget(function(key, value, options)
 		expandable = true,
 		update = function(cframeString)
 			local pattern = "(.+),(.+),(.+),(.+),(.+),(.+)"
- 			local x, y, z, rx, ry, rz = cframeString:gsub("%s+",""):match(pattern)
+			local x, y, z, rx, ry, rz = cframeString:gsub("%s+", ""):match(pattern)
 			options.update(CFrame.new(x, y, z) * CFrame.fromOrientation(rx, ry, rz))
-		end
+		end,
 	}, function()
-
 		vector3("Position", value.Position, {
 			update = function(newPosition)
 				options.update(CFrame.new(newPosition) * CFrame.fromOrientation(oX, oY, oZ))
-			end
+			end,
 		})
 
 		vector3("Orientation", Vector3.new(oX, oY, oZ), {
 			update = function(newOrientation)
-				options.update(CFrame.new(value.Position) * CFrame.fromOrientation(newOrientation.X, newOrientation.Y, newOrientation.Z))
-			end
+				options.update(
+					CFrame.new(value.Position)
+						* CFrame.fromOrientation(newOrientation.X, newOrientation.Y, newOrientation.Z)
+				)
+			end,
 		})
-
 	end)
 end)

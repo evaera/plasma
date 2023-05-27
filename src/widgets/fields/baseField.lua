@@ -6,7 +6,6 @@ local Field = require(script.Parent.Parent.Parent.Field)
 
 local DEPTH_PADDING = 20
 
-
 local fieldValueDisplay = Runtime.widget(function(value, options, globalFieldOptions)
 	local fieldValueType = options.fieldValueType or Field.FieldValueType.TEXTBOX
 
@@ -24,7 +23,7 @@ local fieldValueDisplay = Runtime.widget(function(value, options, globalFieldOpt
 					if enterPressed then
 						options.update(ref.valueText.Text)
 					end
-				end
+				end,
 			})
 		end)
 
@@ -77,13 +76,13 @@ local fieldRow = Runtime.widget(function(key, value, options, globalFieldOptions
 				setExpand(function(isExpanded)
 					return not isExpanded
 				end)
-			end
+			end,
 		})
 
 		local spacer = create("Frame", {
 			[ref] = "spacer",
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, spacerSizeX, 1, 0)
+			Size = UDim2.new(0, spacerSizeX, 1, 0),
 		})
 
 		local keyLabel = create("TextLabel", {
@@ -103,16 +102,16 @@ local fieldRow = Runtime.widget(function(key, value, options, globalFieldOptions
 			create("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Center
-			})
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
 		})
 
 		local valueContainer = create("Frame", {
 			[ref] = "valueContainer",
 			BackgroundTransparency = 1,
 			create("UIPadding", {
-				PaddingLeft = UDim.new(0, 5)
-			})
+				PaddingLeft = UDim.new(0, 5),
+			}),
 		})
 
 		local rowContainer = create("Frame", {
@@ -127,8 +126,8 @@ local fieldRow = Runtime.widget(function(key, value, options, globalFieldOptions
 		})
 
 		automaticSize(keyLabel)
-		automaticSize(keyContainer, {minSize = minCellSize})
-		automaticSize(valueContainer, {minSize = minCellSize})
+		automaticSize(keyContainer, { minSize = minCellSize })
+		automaticSize(valueContainer, { minSize = minCellSize })
 		automaticSize(rowContainer)
 
 		return rowContainer, valueContainer
@@ -146,20 +145,19 @@ local fieldRow = Runtime.widget(function(key, value, options, globalFieldOptions
 	local handle = {
 		expanded = function()
 			return expand
-		end
+		end,
 	}
 
 	return handle
 end)
 
 return Runtime.widget(function(key, value, options, fn)
-
 	local globalFieldOptions = Field.getOptions()
 
 	local expanded = fieldRow(key, value, options, globalFieldOptions):expanded()
 
 	if fn and expanded then
-		Field.setOptions({depth = globalFieldOptions.depth + 1})
+		Field.setOptions({ depth = globalFieldOptions.depth + 1 })
 		Runtime.scope(fn)
 	end
 end)

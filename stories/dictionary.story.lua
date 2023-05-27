@@ -11,8 +11,7 @@ return function(target)
 	class.__index = class
 
 	function class.new()
-		local t = setmetatable({
-		}, class)
+		local t = setmetatable({}, class)
 
 		t.field = "this is a field"
 
@@ -22,13 +21,11 @@ return function(target)
 	local dict = {
 		vector3 = Vector3.new(),
 		tbl = {
-			nested_tbl = {"first element in array is a string"}
+			nested_tbl = { "first element in array is a string" },
 		},
-		fn = function()
-
-		end,
+		fn = function() end,
 		class_instance = class.new(),
-		cf = CFrame.new()
+		cf = CFrame.new(),
 	}
 
 	local connection = RunService.Heartbeat:Connect(function()
@@ -36,22 +33,19 @@ return function(target)
 			window({
 				title = "Dictionary",
 			}, function()
-
 				dictionary(dict, {
 					alignFields = true,
-					minCellSize = Vector2.new(300,40),
+					minCellSize = Vector2.new(300, 40),
 					update = function(new)
 						local newDict = table.clone(dict)
 
-						for k,v in new do
+						for k, v in new do
 							newDict[k] = v
 						end
 
 						dict = newDict
-					end
-
+					end,
 				})
-
 			end)
 		end)
 	end)
