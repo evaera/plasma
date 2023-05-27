@@ -21,7 +21,7 @@ local fieldValueDisplay = Runtime.widget(function(value, options, globalFieldOpt
 				Text = value,
 				FocusLost = function(enterPressed)
 					if enterPressed then
-						options.update(ref.valueText.Text)
+						options.onUpdate(ref.valueText.Text)
 					end
 				end,
 			})

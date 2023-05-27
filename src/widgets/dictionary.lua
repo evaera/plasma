@@ -16,8 +16,8 @@ local function generateWidgets(fields, options)
 
 		if fieldWidget then
 			fieldWidget(fieldKey, fieldValue, {
-				update = function(newValue)
-					options.update({
+				onUpdate = function(newValue)
+					options.onUpdate({
 						[fieldKey] = newValue,
 					})
 				end,
@@ -29,10 +29,10 @@ local function generateWidgets(fields, options)
 				{ expandable = true, fieldValueType = Field.FieldValueType.TEXTLABEL },
 				function()
 					generateWidgets(fieldValue, {
-						update = function(patch)
+						onUpdate = function(patch)
 							local new = table.clone(fields)
 							new[fieldKey] = patch
-							options.update(new)
+							options.onUpdate(new)
 						end,
 					})
 				end
