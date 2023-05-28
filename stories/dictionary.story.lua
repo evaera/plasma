@@ -20,12 +20,14 @@ return function(target)
 
 	local dict = {
 		vector3 = Vector3.new(),
+		vec2 = Vector2.new(),
 		tbl = {
 			nested_tbl = { "first element in array is a string" },
 		},
 		fn = function() end,
 		class_instance = class.new(),
 		cf = CFrame.new(),
+		bool = true,
 	}
 
 	local connection = RunService.Heartbeat:Connect(function()
@@ -35,8 +37,8 @@ return function(target)
 			}, function()
 				dictionary(dict, {
 					alignFields = true,
-					minCellSize = Vector2.new(300, 40),
-					update = function(new)
+					minCellSize = Vector2.new(150, 40),
+					onUpdate = function(new)
 						local newDict = table.clone(dict)
 
 						for k, v in new do

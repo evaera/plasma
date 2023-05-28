@@ -37,14 +37,19 @@ return Runtime.widget(function(options, fn)
 
 		ref.frame = Frame
 
-		automaticSize(Frame)
+		automaticSize(Frame, { minSize = options.minSize })
 
 		return Frame
 	end)
 
+	Runtime.useEffect(function()
+		refs.frame:SetAttribute("minSize", options.minSize)
+	end, options.minSize)
+
 	local frame = refs.frame
 
 	frame.UIListLayout.HorizontalAlignment = options.alignment or Enum.HorizontalAlignment.Left
+	frame.UIListLayout.VerticalAlignment = options.verticalAlignment or Enum.VerticalAlignment.Center
 
 	Runtime.scope(fn)
 end)
