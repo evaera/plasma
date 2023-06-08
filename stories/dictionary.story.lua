@@ -23,6 +23,7 @@ return function(target)
 		vec2 = Vector2.new(),
 		tbl = {
 			nested_tbl = { "first element in array is a string" },
+			vector3 = Vector3.new(),
 		},
 		fn = function() end,
 		class_instance = class.new(),

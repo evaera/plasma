@@ -1,7 +1,6 @@
 local Runtime = require(script.Parent.Parent.Runtime)
 local create = require(script.Parent.Parent.create)
 local Style = require(script.Parent.Parent.Style)
-local automaticSize = require(script.Parent.Parent.automaticSize)
 
 --[=[
 	@within Plasma
@@ -11,7 +10,9 @@ local automaticSize = require(script.Parent.Parent.automaticSize)
 
 	Text.
 ]=]
-return Runtime.widget(function(text, onFocusLost)
+return Runtime.widget(function(text)
+	local focusLost, setFocusLost = Runtime.useState(nil)
+
 	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
@@ -25,7 +26,7 @@ return Runtime.widget(function(text, onFocusLost)
 			Size = UDim2.new(0, 100, 0, 50),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			FocusLost = function(enterPressed)
-				onFocusLost(ref.input.Text, enterPressed)
+				setFocusLost({ enterPressed = enterPressed, text = ref.input.Text })
 			end,
 		})
 
@@ -35,4 +36,17 @@ return Runtime.widget(function(text, onFocusLost)
 	if not refs.input:IsFocused() then
 		refs.input.Text = text
 	end
+
+	local handle = {
+		focusLost = function()
+			if focusLost then
+				setFocusLost(nil)
+				return true, focusLost.enterPressed, focusLost.text
+			end
+
+			return false, nil, refs.input.Text
+		end,
+	}
+
+	return handle
 end)
