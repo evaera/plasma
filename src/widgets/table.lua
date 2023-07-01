@@ -8,11 +8,10 @@ local cell = Runtime.widget(function(text, font)
 	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
-		return create("TextLabel", {
+		local cellLabel = create("TextLabel", {
 			[ref] = "label",
 			BackgroundTransparency = 1,
 			Font = Enum.Font.SourceSans,
-			AutomaticSize = Enum.AutomaticSize.XY,
 			TextColor3 = style.textColor,
 			TextSize = 20,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -25,6 +24,10 @@ local cell = Runtime.widget(function(text, font)
 				PaddingTop = UDim.new(0, 8),
 			}),
 		})
+
+		automaticSize(cellLabel, { axis = Enum.AutomaticSize.XY })
+
+		return cellLabel
 	end)
 
 	refs.label.Font = font or Enum.Font.SourceSans
