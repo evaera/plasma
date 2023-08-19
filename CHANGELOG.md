@@ -1,5 +1,9 @@
 # Changelog
 
+## UNRELEASED
+### Fixed
+- automaticSize helper should now set minSize attribute correctly 
+
 ## [0.4.2] - 2022-07-10
 ### Fixed
 - Fixed Slider not firing event callback for drag connection (Fixes using slider on the server in Matter debugger)
