@@ -151,7 +151,7 @@ local function automaticSize(container, options)
 	end
 
 	if options.minSize then
-		container:SetAttribute("minSize", options.maxSize)
+		container:SetAttribute("minSize", options.minSize)
 	end
 
 	if options.axis then
