@@ -101,6 +101,10 @@ return Runtime.widget(function(options, fn)
 					end
 
 					dragConnection = connect(UserInputService, "InputChanged", function(moveInput)
+						if moveInput.UserInputType ~= Enum.UserInputType.MouseMovement then
+							return
+						end
+
 						local delta = lastMousePosition - moveInput.Position
 
 						lastMousePosition = moveInput.Position
