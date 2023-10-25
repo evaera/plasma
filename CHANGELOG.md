@@ -6,7 +6,7 @@
 
 ### Fixed
 - automaticSize helper should now set minSize attribute correctly
-- Fixed the window the window position reseting when another input state update is processed while the window is moving
+- Fixed the window position reseting when another input state update is processed while the window is being dragged
 
 ## [0.4.2] - 2022-07-10
 ### Fixed
