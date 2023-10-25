@@ -16,6 +16,9 @@ return {
 	useEffect = Runtime.useEffect,
 	useKey = Runtime.useKey,
 	setEventCallback = Runtime.setEventCallback,
+	createContext = Runtime.createContext,
+	useContext = Runtime.useContext,
+	provideContext = Runtime.provideContext,
 
 	useStyle = Style.get,
 	setStyle = Style.set,

@@ -1,6 +1,9 @@
 # Changelog
 
 ## UNRELEASED
+### Added
+- The context functions are now exposed in `init.lua`
+
 ### Fixed
 - automaticSize helper should now set minSize attribute correctly 
 
