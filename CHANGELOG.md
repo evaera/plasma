@@ -5,7 +5,8 @@
 - The context functions are now exposed in `init.lua`
 
 ### Fixed
-- automaticSize helper should now set minSize attribute correctly 
+- automaticSize helper should now set minSize attribute correctly
+- Fixed the window the window position reseting when another input state update is processed while the window is moving
 
 ## [0.4.2] - 2022-07-10
 ### Fixed
