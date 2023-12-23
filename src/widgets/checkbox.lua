@@ -50,16 +50,16 @@ return Runtime.widget(function(text, options)
 			[ref] = "checkbox",
 			BackgroundTransparency = 1,
 			Name = "Checkbox",
-			Size = UDim2.new(0, 30, 0, 30),
+			Size = UDim2.new(0, 20, 0, 20),
 			AutomaticSize = Enum.AutomaticSize.X,
 
 			create("TextButton", {
 				BackgroundColor3 = Color3.fromRGB(54, 54, 54),
 				BorderSizePixel = 0,
-				Font = Enum.Font.SourceSansBold,
-				Size = UDim2.new(0, 30, 0, 30),
+				Font = Enum.Font.GothamBold,
+				Size = UDim2.new(0, 20, 0, 20),
 				TextColor3 = Color3.fromRGB(153, 153, 153),
-				TextSize = 24,
+				TextSize = 18,
 
 				create("UICorner", {
 					CornerRadius = UDim.new(0, 8),
@@ -77,7 +77,7 @@ return Runtime.widget(function(text, options)
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				Font = Enum.Font.GothamMedium,
 				TextColor3 = Color3.fromRGB(203, 203, 203),
-				TextSize = 18,
+				TextSize = 14,
 				AutomaticSize = Enum.AutomaticSize.X,
 				RichText = true,
 			}),

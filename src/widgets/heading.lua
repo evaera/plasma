@@ -1,6 +1,6 @@
 local Runtime = require(script.Parent.Parent.Runtime)
-local create = require(script.Parent.Parent.create)
 local Style = require(script.Parent.Parent.Style)
+local create = require(script.Parent.Parent.create)
 
 --[=[
 	@within Plasma
@@ -22,7 +22,7 @@ return Runtime.widget(function(text, options)
 			Font = Enum.Font.GothamBold,
 			AutomaticSize = Enum.AutomaticSize.XY,
 			TextColor3 = style.mutedTextColor,
-			TextSize = 20,
+			TextSize = 18,
 			RichText = true,
 		})
 	end)
