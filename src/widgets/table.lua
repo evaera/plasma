@@ -204,7 +204,6 @@ return Runtime.widget(function(items, options)
 	end
 
 	return {
-		--selectedHeading = function() end,
 		selectedHeading = function()
 			if selectedHeading then
 				setSelectedHeading(nil)
