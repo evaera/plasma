@@ -5,10 +5,11 @@ local create = require(script.Parent.Parent.create)
 local automaticSize = require(script.Parent.Parent.automaticSize)
 
 local cell = Runtime.widget(function(text, font)
+	local clicked, setClicked = Runtime.useState(false)
 	local refs = Runtime.useInstance(function(ref)
 		local style = Style.get()
 
-		return create("TextLabel", {
+		return create("TextButton", {
 			[ref] = "label",
 			BackgroundTransparency = 1,
 			Font = Enum.Font.SourceSans,
@@ -17,6 +18,11 @@ local cell = Runtime.widget(function(text, font)
 			TextSize = 20,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			RichText = true,
+			Active = true,
+
+			Activated = function()
+				setClicked(true)
+			end,
 
 			create("UIPadding", {
 				PaddingBottom = UDim.new(0, 8),
@@ -29,20 +35,30 @@ local cell = Runtime.widget(function(text, font)
 
 	refs.label.Font = font or Enum.Font.SourceSans
 	refs.label.Text = text
+
+	return {
+		clicked = function()
+			if clicked then
+				setClicked(false)
+				return true
+			end
+
+			return false
+		end,
+	}
 end)
 
 local row = Runtime.widget(function(columns, darken, selectable, font)
-	local clicked, setClicked = Runtime.useState(false)
+	local clicked, setClicked = Runtime.useState()
 	local hovering, setHovering = Runtime.useState(false)
-
 	local selected = columns.selected
 
 	local refs = Runtime.useInstance(function(ref)
-		return create("TextButton", {
+		return create("TextLabel", {
 			[ref] = "row",
 			BackgroundTransparency = if darken then 0.7 else 1,
 			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-			AutoButtonColor = false,
+			--AutoButtonColor = false,
 			Text = "",
 			Active = false,
 
@@ -52,10 +68,6 @@ local row = Runtime.widget(function(columns, darken, selectable, font)
 
 			MouseLeave = function()
 				setHovering(false)
-			end,
-
-			Activated = function()
-				setClicked(true)
 			end,
 		})
 	end)
@@ -79,15 +91,17 @@ local row = Runtime.widget(function(columns, darken, selectable, font)
 		if type(column) == "function" then
 			Runtime.scope(column)
 		else
-			cell(column, font)
+			if cell(column, font):clicked() then
+				setClicked(column)
+			end
 		end
 	end
 
 	return {
 		clicked = function()
 			if clicked then
-				setClicked(false)
-				return true
+				setClicked(nil)
+				return clicked
 			end
 			return false
 		end,
@@ -162,21 +176,26 @@ return Runtime.widget(function(items, options)
 	end)
 
 	local selected, setSelected = Runtime.useState()
+	--local selectedHeading, setSelectedHeading = Runtime.useState()
 	local hovered
 
 	for i, columns in items do
 		local selectable = options.selectable
 		local font = options.font
+		local isHeading = options.headings and i == 1
 
-		if options.headings and i == 1 then
-			selectable = false
+		if isHeading then
 			font = Enum.Font.GothamBold
 		end
 
 		local currentRow = row(columns, i % 2 == 1, selectable, font)
-
-		if currentRow:clicked() then
-			setSelected(columns)
+		local clickedCell = currentRow:clicked()
+		if clickedCell then
+			if isHeading then
+				--setSelectedHeading()
+			else
+				setSelected({ row = columns, cell = clickedCell })
+			end
 		end
 
 		if currentRow:hovered() then
@@ -185,10 +204,11 @@ return Runtime.widget(function(items, options)
 	end
 
 	return {
+		--selectedHeading = function() end,
 		selected = function()
 			if selected then
 				setSelected(nil)
-				return selected
+				return selected.row, selected.cell
 			end
 		end,
 		hovered = function()
