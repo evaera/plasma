@@ -176,7 +176,7 @@ return Runtime.widget(function(items, options)
 	end)
 
 	local selected, setSelected = Runtime.useState()
-	--local selectedHeading, setSelectedHeading = Runtime.useState()
+	local selectedHeading, setSelectedHeading = Runtime.useState()
 	local hovered
 
 	for i, columns in items do
@@ -192,7 +192,7 @@ return Runtime.widget(function(items, options)
 		local clickedCell = currentRow:clicked()
 		if clickedCell then
 			if isHeading then
-				--setSelectedHeading()
+				setSelectedHeading({ row = columns, cell = clickedCell })
 			else
 				setSelected({ row = columns, cell = clickedCell })
 			end
@@ -205,11 +205,21 @@ return Runtime.widget(function(items, options)
 
 	return {
 		--selectedHeading = function() end,
+		selectedHeading = function()
+			if selectedHeading then
+				setSelectedHeading(nil)
+				return selectedHeading.row, selectedHeading.cell
+			end
+
+			return nil
+		end,
 		selected = function()
 			if selected then
 				setSelected(nil)
 				return selected.row, selected.cell
 			end
+
+			return nil
 		end,
 		hovered = function()
 			return hovered
