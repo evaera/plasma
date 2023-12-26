@@ -10,7 +10,7 @@ local cell = Runtime.widget(function(text, font)
 		local style = Style.get()
 
 		return create("TextButton", {
-			[ref] = "label",
+			[ref] = "button",
 			BackgroundTransparency = 1,
 			Font = Enum.Font.SourceSans,
 			AutomaticSize = Enum.AutomaticSize.XY,
@@ -18,6 +18,7 @@ local cell = Runtime.widget(function(text, font)
 			TextSize = 20,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			RichText = true,
+			AutoButtonColor = false,
 			Active = true,
 
 			Activated = function()
@@ -33,8 +34,8 @@ local cell = Runtime.widget(function(text, font)
 		})
 	end)
 
-	refs.label.Font = font or Enum.Font.SourceSans
-	refs.label.Text = text
+	refs.button.Font = font or Enum.Font.SourceSans
+	refs.button.Text = text
 
 	return {
 		clicked = function()
@@ -58,7 +59,6 @@ local row = Runtime.widget(function(columns, darken, selectable, font)
 			[ref] = "row",
 			BackgroundTransparency = if darken then 0.7 else 1,
 			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-			--AutoButtonColor = false,
 			Text = "",
 			Active = false,
 
