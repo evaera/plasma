@@ -27,20 +27,18 @@ return function(target)
 
 					local selectedHeading = tbl:selectedHeading()
 					if headings[selectedHeading] == headings[1] then
+						-- Sort alphabetically
 						table.sort(items, function(a, b)
 							return a[1] < b[1]
 						end)
 					elseif headings[selectedHeading] == headings[2] then
+						-- Sort by count
 						table.sort(items, function(a, b)
 							return a[2] < b[2]
 						end)
 					end
 
 					local selectedRow, cellIndex = tbl:selected()
-					if selectedRow then
-						print(selectedRow, cellIndex)
-					end
-
 					if cellIndex == 1 then
 						-- Remove row if click name
 						table.remove(items, table.find(items, selectedRow))
