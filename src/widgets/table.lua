@@ -87,12 +87,12 @@ local row = Runtime.widget(function(columns, darken, selectable, font)
 	refs.row.BackgroundTransparency = transparency
 	refs.row.BackgroundColor3 = selected and Color3.fromHex("bd515c") or Color3.fromRGB(0, 0, 0)
 
-	for _, column in ipairs(columns) do
+	for index, column in ipairs(columns) do
 		if type(column) == "function" then
 			Runtime.scope(column)
 		else
 			if cell(column, font):clicked() then
-				setClicked(column)
+				setClicked(index)
 			end
 		end
 	end
@@ -202,7 +202,7 @@ return Runtime.widget(function(items, options)
 			if isHeading then
 				setSelectedHeading(clickedCell)
 			else
-				setSelected({ row = columns, cell = clickedCell })
+				setSelected({ row = columns, cellIndex = clickedCell })
 			end
 		end
 
@@ -223,7 +223,7 @@ return Runtime.widget(function(items, options)
 		selected = function()
 			if selected then
 				setSelected(nil)
-				return selected.row, selected.cell
+				return selected.row, selected.cellIndex
 			end
 
 			return nil
