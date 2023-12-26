@@ -25,7 +25,7 @@ return function(target)
 						selectable = true,
 					})
 
-					local _, selectedHeading = tbl:selectedHeading()
+					local selectedHeading = tbl:selectedHeading()
 					if selectedHeading == "Name" then
 						table.sort(items, function(a, b)
 							return a[1] < b[1]

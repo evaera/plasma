@@ -103,7 +103,8 @@ local row = Runtime.widget(function(columns, darken, selectable, font)
 				setClicked(nil)
 				return clicked
 			end
-			return false
+
+			return nil
 		end,
 		hovered = function()
 			return hovering
@@ -117,8 +118,15 @@ end)
 	@param items {{string}}
 	@param options {marginTop?: number, selectable?: boolean, font?: Font, headings?: boolean}
 	@tag widgets
+	@return TableWidgetHandle
 
-	A table widget. Items is a list of rows, with each row being a list of cells.
+	A table widget. Items is a list of rows, with each row being a list of cells. 
+
+	Returns a widget handle, which has the fields:
+
+	- `selected`, a function you can call to check what row and cell were selected this frame, if any
+	- `selectedHeading`, a function you can call to check which heading was selected this frame, if any
+	- `hovered`, a function you can call to check what row is being hovered over
 
 	```lua
 	local items = {
@@ -192,7 +200,7 @@ return Runtime.widget(function(items, options)
 		local clickedCell = currentRow:clicked()
 		if clickedCell then
 			if isHeading then
-				setSelectedHeading({ row = columns, cell = clickedCell })
+				setSelectedHeading(clickedCell)
 			else
 				setSelected({ row = columns, cell = clickedCell })
 			end
@@ -207,7 +215,7 @@ return Runtime.widget(function(items, options)
 		selectedHeading = function()
 			if selectedHeading then
 				setSelectedHeading(nil)
-				return selectedHeading.row, selectedHeading.cell
+				return selectedHeading
 			end
 
 			return nil
