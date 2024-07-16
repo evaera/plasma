@@ -1,11 +1,11 @@
 <div align="center">
 	<h1>Plasma</h1>
 	<p>A declarative, immediate mode UI widget library for Roblox.</p>
-	<a href="https://eryn.io/plasma"><strong>View docs</strong></a>
-  <br><br><br>
+	<p>This repository is no longer maintained. A community fork contintues development:</p>
+	<a href="https://github.com/matter-ecs/plasma"><strong>Take me to matter-ecs/plasma &rarr;</strong></a>
+  <br><br><br><br><br><br>
   
-  Made by [@lpghatguy](https://github.com/lpghatguy) and [@evaera](https://github.com/evaera) ❤️
+  Originally made by [@lpghatguy](https://github.com/lpghatguy) and [@evaera](https://github.com/evaera) ❤️
 </div>
 
-<br><br>
-⚠️ Not quite ready for production yet. There might be bugs and missing features!
+
