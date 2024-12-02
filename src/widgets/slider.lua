@@ -14,7 +14,9 @@ return Runtime.widget(function(options)
 
 	local min = options.min or 0
 	local max = options.max or 1
-	local value, setValue = Runtime.useState(options.initial or 0)
+	local initial = options.initial or 0
+	local initpercent = (initial - min) / (max - min)
+	local precentageValue, setPrecentageValue = Runtime.useState(initpercent)
 
 	local refs = Runtime.useInstance(function(ref)
 		local connect = createConnect()
@@ -70,8 +72,8 @@ return Runtime.widget(function(options)
 						x = math.clamp(x, 0, maxPos)
 
 						local percent = x / maxPos
-
-						setValue(percent * (max - min) + min)
+						
+						setPrecentageValue(percent)
 					end)
 				end,
 
@@ -92,8 +94,8 @@ return Runtime.widget(function(options)
 	end)
 
 	local maxPos = refs.frame.AbsoluteSize.X - refs.frame.dot.AbsoluteSize.X
-	local percent = (value - min) / (max - min)
-	refs.frame.dot.Position = UDim2.new(0, percent * maxPos + refs.frame.dot.AbsoluteSize.X / 2, 0.5, 0)
+	refs.frame.dot.Position = UDim2.new(0, precentageValue * maxPos + refs.frame.dot.AbsoluteSize.X / 2, 0.5, 0)
 
+	local value = precentageValue * (max - min) + min
 	return value
 end)
