@@ -33,10 +33,10 @@ local UserInputService = game:GetService("UserInputService")
 ]=]
 
 local Runtime = require(script.Parent.Parent.Runtime)
-local createConnect = require(script.Parent.Parent.createConnect)
 local Style = require(script.Parent.Parent.Style)
 local automaticSize = require(script.Parent.Parent.automaticSize)
 local c = require(script.Parent.Parent.create)
+local createConnect = require(script.Parent.Parent.createConnect)
 
 local MIN_SIZE = Vector2.new(50, 50)
 local MAX_SIZE = Vector2.new(1500, 500)
@@ -70,7 +70,7 @@ return Runtime.widget(function(options, fn)
 
 			c("TextButton", {
 				[ref] = "titleBar",
-				Size = UDim2.new(1, 0, 0, 40),
+				Size = UDim2.new(1, 0, 0, 20),
 				BackgroundTransparency = 1,
 				Text = "",
 
@@ -124,7 +124,7 @@ return Runtime.widget(function(options, fn)
 						Text = "..",
 						Position = UDim2.new(0, 0, 0, 0),
 						BackgroundTransparency = 1,
-						TextSize = 20,
+						TextSize = 16,
 						TextColor3 = style.mutedTextColor,
 					}),
 
@@ -132,7 +132,7 @@ return Runtime.widget(function(options, fn)
 						Text = "..",
 						Position = UDim2.new(0, 0, 0, 7),
 						BackgroundTransparency = 1,
-						TextSize = 20,
+						TextSize = 16,
 						TextColor3 = style.mutedTextColor,
 					}),
 
@@ -140,7 +140,7 @@ return Runtime.widget(function(options, fn)
 						Text = "..",
 						Position = UDim2.new(0, 0, 0, -7),
 						BackgroundTransparency = 1,
-						TextSize = 20,
+						TextSize = 16,
 						TextColor3 = style.mutedTextColor,
 					}),
 				}),
@@ -151,7 +151,7 @@ return Runtime.widget(function(options, fn)
 					Font = Enum.Font.GothamBold,
 					Size = UDim2.new(1, 0, 1, 0),
 					TextColor3 = style.mutedTextColor,
-					TextSize = 20,
+					TextSize = 16,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextTruncate = Enum.TextTruncate.AtEnd,
@@ -165,7 +165,7 @@ return Runtime.widget(function(options, fn)
 					AnchorPoint = Vector2.new(0.5, 0),
 					Position = UDim2.new(1, -10, 0, 0),
 					TextColor3 = Color3.fromHex("#71190f"),
-					TextSize = 20,
+					TextSize = 16,
 					Font = Enum.Font.Gotham,
 
 					MouseEnter = function()
@@ -205,8 +205,8 @@ return Runtime.widget(function(options, fn)
 				[ref] = "resizeHandle",
 				Size = UDim2.new(0, 20, 0, 20),
 				Text = "≡",
-				Font = Enum.Font.SourceSans,
-				TextSize = 20,
+				Font = Enum.Font.Gotham,
+				TextSize = 16,
 				Rotation = -45,
 				BackgroundTransparency = 1,
 				TextColor3 = style.mutedTextColor,

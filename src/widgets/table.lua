@@ -1,8 +1,8 @@
 local RunService = game:GetService("RunService")
 local Runtime = require(script.Parent.Parent.Runtime)
 local Style = require(script.Parent.Parent.Style)
-local create = require(script.Parent.Parent.create)
 local automaticSize = require(script.Parent.Parent.automaticSize)
+local create = require(script.Parent.Parent.create)
 
 local cell = Runtime.widget(function(text, font)
 	local refs = Runtime.useInstance(function(ref)
@@ -11,10 +11,10 @@ local cell = Runtime.widget(function(text, font)
 		return create("TextLabel", {
 			[ref] = "label",
 			BackgroundTransparency = 1,
-			Font = Enum.Font.SourceSans,
+			Font = Enum.Font.Gotham,
 			AutomaticSize = Enum.AutomaticSize.XY,
 			TextColor3 = style.textColor,
-			TextSize = 20,
+			TextSize = 16,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			RichText = true,
 
@@ -27,7 +27,7 @@ local cell = Runtime.widget(function(text, font)
 		})
 	end)
 
-	refs.label.Font = font or Enum.Font.SourceSans
+	refs.label.Font = font or Enum.Font.Gotham
 	refs.label.Text = text
 end)
 
